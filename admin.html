@@ -115,9 +115,25 @@ function renderProducts(){
 }
 function renderImages(){
  const root=$('tab-images');
- root.innerHTML=`<h2>Imagens gerais do site</h2><p>Troque as fotografias principais e a identidade visual da Ma Vie.</p>
- ${[['hero','Imagem principal do banner'],['logo','Logotipo'],['essence','Imagem da seção Nossa essência'],['customer1','Foto da seção Momentos Ma Vie — 1'],['customer2','Foto da seção Momentos Ma Vie — 2']].map(([k,label])=>`<article class="item"><h3>${label}</h3><img class="preview" src="${esc(catalog.images[k]||'')}" alt=""><input type="file" accept="image/*" data-img="${k}"></article>`).join('')}`;
+ const fitOptions = (current) => `
+   <select data-img-fit="${current}">
+     <option value="cover" ${catalog.images[current+'Fit']==='cover'?'selected':''}>Preencher caixa (Cover - Corta bordas se necessário)</option>
+     <option value="contain" ${catalog.images[current+'Fit']==='contain'||!catalog.images[current+'Fit']?'selected':''}>Foto inteira sem cortes (Contain)</option>
+   </select>`;
+
+ root.innerHTML=`<h2>Imagens gerais do site</h2><p>Troque as fotografias e escolha a forma como serão exibidas no site.</p>
+ ${[['hero','Imagem principal do banner'],['logo','Logotipo'],['essence','Imagem da seção Nossa essência'],['customer1','Foto da seção Momentos Ma Vie — 1'],['customer2','Foto da seção Momentos Ma Vie — 2']].map(([k,label])=>`
+   <article class="item">
+     <h3>${label}</h3>
+     <img class="preview" src="${esc(catalog.images[k]||'')}" style="object-fit:${catalog.images[k+'Fit']||'contain'}" alt="">
+     <label>Modo de Exibição / Enquadramento</label>
+     ${fitOptions(k)}
+     <label>Trocar Fotografia</label>
+     <input type="file" accept="image/*" data-img="${k}">
+   </article>`).join('')}`;
+
  root.querySelectorAll('[data-img]').forEach(el=>el.onchange=async()=>{if(el.files[0]){try{catalog.images[el.dataset.img]=await uploadImage(el.files[0]);renderImages();setDirty()}catch(e){alert(e.message)}}});
+ root.querySelectorAll('[data-img-fit]').forEach(el=>el.onchange=()=>{catalog.images[el.dataset.imgFit+'Fit']=el.value;renderImages();setDirty()});
 }
 async function uploadImage(file){
  if(file.size>6*1024*1024)throw new Error('A imagem deve ter até 6 MB. Reduza o tamanho e tente novamente.');
