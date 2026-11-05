@@ -75,7 +75,7 @@
     },
     {
       "id": "flowers",
-      "name": "Mini arranjo floral",
+      "name": "Flores",
       "desc": "Flores da estação",
       "price": 32,
       "cost": 17,
@@ -139,6 +139,7 @@
     "logo": "https://github.com/user-attachments/assets/be778b1d-a18e-4b6a-b3b7-729b52684f94",
     "essence": "https://github.com/user-attachments/assets/58dd1972-e3ec-4035-9f46-1ef3039a5fc0",
     "customer1": "https://github.com/user-attachments/assets/40b84e6e-d5d6-4c06-b082-fbee1abecb3d",
-    "customer2": "https://github.com/user-attachments/assets/17069455-d5a4-404e-8692-0779195b526b"
+    "customer2": "https://github.com/user-attachments/assets/17069455-d5a4-404e-8692-0779195b526b",
+    "heroFit": "contain"
   }
 }
