@@ -289,9 +289,10 @@ async function loadCatalog(){
     const logo=document.querySelector('.brandmark img');
     if(logo) logo.src=data.images.logo;
   }
-  document.querySelectorAll('[data-catalog-image]').forEach(img=>{
+ document.querySelectorAll('[data-catalog-image]').forEach(img=>{
     const key=img.dataset.catalogImage;
     if(data.images?.[key]) img.src=data.images[key];
+    if(data.images?.[key+'Fit']) img.style.objectFit=data.images[key+'Fit'];
   });
   renderSizes();
   if(chosen && S[chosen]) { bag={...S[chosen].items}; renderProducts(); update(); }
