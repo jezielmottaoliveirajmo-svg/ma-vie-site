@@ -1,0 +1,144 @@
+{
+  "version": 1,
+  "products": [
+    {
+      "id": "coffee",
+      "name": "Café especial",
+      "desc": "Pacote ou sachês selecionados",
+      "price": 18,
+      "cost": 9,
+      "img": "https://github.com/user-attachments/assets/f98dba3c-cdc3-4563-af52-0594312b6bbf",
+      "active": true
+    },
+    {
+      "id": "juice",
+      "name": "Suco integral",
+      "desc": "Garrafa individual",
+      "price": 14,
+      "cost": 7,
+      "img": "https://github.com/user-attachments/assets/58dd1972-e3ec-4035-9f46-1ef3039a5fc0",
+      "active": true
+    },
+    {
+      "id": "croissant",
+      "name": "Croissant",
+      "desc": "Unidade artesanal",
+      "price": 12,
+      "cost": 5.5,
+      "img": "https://github.com/user-attachments/assets/fc936a82-1471-4f07-a71d-325a8427c0bb",
+      "active": true
+    },
+    {
+      "id": "cookies",
+      "name": "Cookies",
+      "desc": "Porção embalada",
+      "price": 10,
+      "cost": 4,
+      "img": "https://github.com/user-attachments/assets/40b84e6e-d5d6-4c06-b082-fbee1abecb3d",
+      "active": true
+    },
+    {
+      "id": "jam",
+      "name": "Geleia artesanal",
+      "desc": "Pote pequeno",
+      "price": 16,
+      "cost": 8,
+      "img": "https://github.com/user-attachments/assets/17069455-d5a4-404e-8692-0779195b526b",
+      "active": true
+    },
+    {
+      "id": "choco",
+      "name": "Chocolate",
+      "desc": "Barra ou caixa pequena",
+      "price": 15,
+      "cost": 7,
+      "img": "https://github.com/user-attachments/assets/f98dba3c-cdc3-4563-af52-0594312b6bbf",
+      "active": true
+    },
+    {
+      "id": "fruit",
+      "name": "Frutas selecionadas",
+      "desc": "Porção da estação",
+      "price": 13,
+      "cost": 6,
+      "img": "https://github.com/user-attachments/assets/58dd1972-e3ec-4035-9f46-1ef3039a5fc0",
+      "active": true
+    },
+    {
+      "id": "mug",
+      "name": "Caneca presenteável",
+      "desc": "Item decorativo",
+      "price": 28,
+      "cost": 14,
+      "img": "https://github.com/user-attachments/assets/fc936a82-1471-4f07-a71d-325a8427c0bb",
+      "active": true
+    },
+    {
+      "id": "flowers",
+      "name": "Mini arranjo floral",
+      "desc": "Flores da estação",
+      "price": 32,
+      "cost": 17,
+      "img": "https://github.com/user-attachments/assets/40b84e6e-d5d6-4c06-b082-fbee1abecb3d",
+      "active": true
+    }
+  ],
+  "baskets": [
+    {
+      "id": "mini",
+      "name": "Mini",
+      "base": 59,
+      "desc": "Um gesto delicado para surpreender.",
+      "img": "https://github.com/user-attachments/assets/fd0a5a15-8265-45df-8884-bca1a9a48f83",
+      "items": {
+        "coffee": 1,
+        "croissant": 1,
+        "cookies": 1,
+        "juice": 1
+      },
+      "active": true
+    },
+    {
+      "id": "medio",
+      "name": "Médio",
+      "base": 109,
+      "desc": "Uma seleção mais completa para compartilhar.",
+      "img": "https://github.com/user-attachments/assets/f98dba3c-cdc3-4563-af52-0594312b6bbf",
+      "items": {
+        "coffee": 1,
+        "croissant": 2,
+        "cookies": 1,
+        "juice": 1,
+        "jam": 1,
+        "choco": 1
+      },
+      "active": true
+    },
+    {
+      "id": "grande",
+      "name": "Grande",
+      "base": 179,
+      "desc": "Uma experiência generosa, cheia de detalhes.",
+      "img": "https://github.com/user-attachments/assets/fc936a82-1471-4f07-a71d-325a8427c0bb",
+      "items": {
+        "coffee": 1,
+        "croissant": 2,
+        "cookies": 2,
+        "juice": 2,
+        "jam": 1,
+        "choco": 2,
+        "fruit": 1,
+        "mug": 1,
+        "flowers": 1
+      },
+      "active": true
+    }
+  ],
+  "images": {
+    "hero": "https://github.com/user-attachments/assets/17069455-d5a4-404e-8692-0779195b526b",
+    "logo": "https://github.com/user-attachments/assets/be778b1d-a18e-4b6a-b3b7-729b52684f94",
+    "essence": "https://github.com/user-attachments/assets/58dd1972-e3ec-4035-9f46-1ef3039a5fc0",
+    "customer1": "https://github.com/user-attachments/assets/40b84e6e-d5d6-4c06-b082-fbee1abecb3d",
+    "customer2": "https://github.com/user-attachments/assets/17069455-d5a4-404e-8692-0779195b526b"
+  }
+}

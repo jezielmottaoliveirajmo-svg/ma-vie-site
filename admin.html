@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#fffdf9"><title>Administração | Ma Vie</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#f7f2eb;--paper:#fffdf9;--ink:#39332e;--muted:#82776c;--gold:#b18b5d;--line:#e8ded1}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:'DM Sans',sans-serif}
+.wrap{width:min(1100px,calc(100% - 30px));margin:auto}.bar{background:#332d27;color:#fff;padding:17px 0}.barin{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{font:600 25px 'Playfair Display';letter-spacing:2px}.brand small{display:block;font:600 9px 'DM Sans';letter-spacing:3px;color:#d8bd9b}
+main{padding:28px 0}.card{background:white;border:1px solid var(--line);padding:20px;margin:0 0 16px;border-radius:3px}
+h1,h2,h3{font-family:'Playfair Display',serif;font-weight:500}h1{font-size:32px;margin:0 0 8px}h2{font-size:24px;margin:0 0 15px}
+p,.muted{color:var(--muted);font-size:13px;line-height:1.6}.row{display:flex;gap:12px;flex-wrap:wrap}.row>*{flex:1;min-width:190px}
+label{display:block;font-size:11px;color:var(--muted);margin:12px 0 5px;text-transform:uppercase;letter-spacing:.5px}
+input,textarea,select{width:100%;padding:11px;border:1px solid var(--line);font:inherit;background:#fff}textarea{min-height:70px}
+button,.btn{background:var(--ink);color:white;border:0;padding:11px 15px;cursor:pointer;font:600 12px 'DM Sans';text-decoration:none;display:inline-block}
+.gold{background:var(--gold)}.light{background:transparent;color:var(--ink);border:1px solid var(--line)}button:disabled{opacity:.5;cursor:not-allowed}
+.hidden{display:none!important}.status{padding:12px;background:#f1ebe2;color:var(--ink);font-size:12px;margin:12px 0}.status.error{background:#fae8e5;color:#813b30}.status.ok{background:#e9f2e8;color:#315a36}
+.tabs{display:flex;gap:7px;flex-wrap:wrap;margin:18px 0}.tabs button.active{background:var(--gold)}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.item{border:1px solid var(--line);padding:14px;background:#fff}.item h3{margin:0 0 5px;font-size:20px}
+.preview{width:100%;height:145px;object-fit:contain;background:var(--bg);margin:8px 0}
+.checks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:10px}
+.check{border:1px solid var(--line);padding:9px;font-size:12px;display:flex;gap:8px;align-items:center}
+.check input{width:auto}
+hr{border:0;border-top:1px solid var(--line);margin:18px 0}
+.small{font-size:11px}.danger{background:#8b4138}
+@media(max-width:650px){.grid{grid-template-columns:1fr}.barin{align-items:flex-start;flex-direction:column}.checks{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="bar"><div class="wrap barin"><div class="brand">MA VIE<small>PAINEL ADMINISTRATIVO</small></div><a class="btn light" href="./">Voltar à loja</a></div></header>
+<main class="wrap">
+<section id="connect" class="card">
+<h1>Acesso administrativo</h1>
+<p>Conecte este painel ao repositório do site para editar o catálogo e as imagens. O token é mantido somente na memória desta aba e não é salvo no site nem no navegador.</p>
+<div class="row"><div><label for="token">Token de acesso do GitHub</label><input id="token" type="password" autocomplete="off" placeholder="Cole seu token fine-grained"></div><div style="align-self:end"><button class="gold" id="connectBtn">Conectar ao GitHub</button></div></div>
+<div class="status" id="connectStatus">Crie um token fine-grained limitado ao repositório <b>ma-vie-site</b>, com permissão <b>Contents: Read and write</b>. Não compartilhe o token.</div>
+<p class="small">Este painel usa a API oficial do GitHub. Ao sair ou fechar a aba, o token deixa de estar disponível nesta página. Se o token expirar, gere outro nas configurações do GitHub.</p>
+</section>
+<section id="app" class="hidden">
+<div class="card"><h1>Gerenciar sua loja</h1><p>Edite os produtos disponíveis, monte novas cestas e escolha quais itens o cliente poderá personalizar.</p>
+<div class="tabs"><button class="active" data-tab="baskets">Cestas</button><button data-tab="products">Itens</button><button data-tab="images">Imagens do site</button></div>
+<div id="tab-baskets"></div><div id="tab-products" class="hidden"></div><div id="tab-images" class="hidden"></div>
+</div>
+<div class="row"><button id="saveBtn" class="gold">Salvar alterações no GitHub</button><button id="reloadBtn" class="light">Descartar e recarregar</button><button id="logoutBtn" class="light">Desconectar</button></div>
+<div id="saveStatus" class="status">As alterações só aparecem na loja depois de salvas e publicadas pelo GitHub Pages.</div>
+</section>
+</main>
+<script>
+const OWNER='jezielmottaoliveirajmo-svg', REPO='ma-vie-site', BRANCH='main', FILE='catalog.json';
+let token='', catalog=null, fileSha=null, dirty=false;
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const slug=s=>String(s).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')||'novo';
+function status(el,msg,type=''){el.className='status '+type;el.textContent=msg}
+async function api(path,opts={}){
+ const r=await fetch('https://api.github.com'+path,{...opts,headers:{'Accept':'application/vnd.github+json','Authorization':'Bearer '+token,'X-GitHub-Api-Version':'2022-11-28',...(opts.headers||{})}});
+ const data=await r.json().catch(()=>({}));
+ if(!r.ok)throw new Error(data.message||('GitHub respondeu '+r.status));
+ return data;
+}
+async function readCatalog(){
+ const d=await api(`/repos/${OWNER}/${REPO}/contents/${FILE}?ref=${BRANCH}`);
+ fileSha=d.sha;
+ const raw=atob(d.content.replace(/\n/g,''));const bytes=Uint8Array.from(raw,c=>c.charCodeAt(0));
+ catalog=JSON.parse(new TextDecoder().decode(bytes));
+ catalog.products ||= [];catalog.baskets ||= [];catalog.images ||= {};
+}
+$('connectBtn').onclick=async()=>{
+ token=$('token').value.trim(); if(!token){status($('connectStatus'),'Cole o token de acesso.','error');return}
+ $('connectBtn').disabled=true;status($('connectStatus'),'Conectando ao repositório…');
+ try{await readCatalog();$('token').value='';$('connect').classList.add('hidden');$('app').classList.remove('hidden');renderAll();status($('saveStatus'),'Conectado. Faça as alterações e salve quando terminar.','ok')}
+ catch(e){token='';status($('connectStatus'),'Não foi possível conectar: '+e.message+'. Confira o token, o repositório e a permissão Contents.','error')}
+ finally{$('connectBtn').disabled=false}
+};
+function setDirty(){dirty=true;status($('saveStatus'),'Há alterações ainda não salvas.','')}
+function switchTab(name){
+ document.querySelectorAll('.tabs button').forEach(b=>b.classList.toggle('active',b.dataset.tab===name));
+ ['baskets','products','images'].forEach(t=>$('tab-'+t).classList.toggle('hidden',t!==name));
+}
+document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>switchTab(b.dataset.tab));
+function renderAll(){renderBaskets();renderProducts();renderImages()}
+function renderBaskets(){
+ const root=$('tab-baskets');
+ root.innerHTML=`<div class="row"><div><h2>Cestas cadastradas</h2><p>O cliente verá os itens que compõem cada cesta e poderá ajustar as quantidades dos itens cadastrados nela.</p></div><div style="align-self:center;text-align:right"><button class="gold" id="newBasket">+ Nova cesta</button></div></div><div class="grid">${catalog.baskets.map((b,i)=>`
+ <article class="item"><h3>${esc(b.name)}</h3><label>Nome</label><input data-b="${i}" data-k="name" value="${esc(b.name)}">
+ <div class="row"><div><label>Preço inicial (R$)</label><input type="number" min="0" step=".01" data-b="${i}" data-k="base" value="${Number(b.base)||0}"></div><div><label>Ativa na loja</label><select data-b="${i}" data-k="active"><option value="true" ${b.active!==false?'selected':''}>Sim</option><option value="false" ${b.active===false?'selected':''}>Não</option></select></div></div>
+ <label>Descrição</label><textarea data-b="${i}" data-k="desc">${esc(b.desc)}</textarea>
+ <label>Imagem da cesta</label><img class="preview" src="${esc(b.img)}" alt=""><input type="file" accept="image/*" data-upload-b="${i}">
+ <label>Itens que compõem esta cesta</label><div class="checks">${catalog.products.filter(p=>p.active!==false).map(p=>`<label class="check"><input type="checkbox" data-bitem="${i}" data-id="${esc(p.id)}" ${b.items?.[p.id]?'checked':''}> ${esc(p.name)} <span style="margin-left:auto">Qtd.</span><input style="width:55px;padding:5px" type="number" min="1" max="99" data-bqty="${i}" data-id="${esc(p.id)}" value="${b.items?.[p.id]||1}" ${b.items?.[p.id]?'':'disabled'}></label>`).join('')}</div>
+ <hr><button class="danger" data-delete-b="${i}">Excluir cesta</button></article>`).join('')}</div>`;
+ root.querySelectorAll('[data-b][data-k]').forEach(el=>el.onchange=()=>{const b=catalog.baskets[+el.dataset.b],k=el.dataset.k;b[k]=k==='base'?Number(el.value):k==='active'?el.value==='true':el.value;setDirty()});
+ root.querySelectorAll('[data-bitem]').forEach(el=>el.onchange=()=>{const i=+el.dataset.b,id=el.dataset.id,b=catalog.baskets[i];b.items||={};if(el.checked)b.items[id]=Math.max(1,Number(root.querySelector(`[data-bqty="${i}"][data-id="${CSS.escape(id)}"]`)?.value)||1);else delete b.items[id];renderBaskets();setDirty()});
+ root.querySelectorAll('[data-bqty]').forEach(el=>el.onchange=()=>{const i=+el.dataset.bqty,id=el.dataset.id;if(catalog.baskets[i].items?.[id])catalog.baskets[i].items[id]=Math.max(1,Number(el.value)||1);setDirty()});
+ root.querySelectorAll('[data-delete-b]').forEach(el=>el.onclick=()=>{if(confirm('Excluir esta cesta?')){catalog.baskets.splice(+el.dataset.deleteB,1);renderBaskets();setDirty()}});
+ root.querySelectorAll('[data-upload-b]').forEach(el=>el.onchange=async()=>{if(el.files[0]){try{catalog.baskets[+el.dataset.uploadB].img=await uploadImage(el.files[0]);renderBaskets();setDirty()}catch(e){alert(e.message)}}});
+ $('newBasket').onclick=()=>{const n=prompt('Nome da nova cesta:');if(!n?.trim())return;catalog.baskets.push({id:slug(n)+'-'+Date.now().toString().slice(-4),name:n.trim(),base:0,desc:'',img:'',items:{},active:true});renderBaskets();setDirty()};
+}
+function renderProducts(){
+ const root=$('tab-products');
+ root.innerHTML=`<div class="row"><div><h2>Itens disponíveis</h2><p>Cadastre os produtos que podem ser incluídos nas cestas. Marque os itens nas configurações de cada cesta.</p></div><div style="align-self:center;text-align:right"><button class="gold" id="newProduct">+ Novo item</button></div></div><div class="grid">${catalog.products.map((p,i)=>`
+ <article class="item"><h3>${esc(p.name)}</h3><label>Nome do item</label><input data-p="${i}" data-k="name" value="${esc(p.name)}">
+ <label>Descrição</label><textarea data-p="${i}" data-k="desc">${esc(p.desc)}</textarea>
+ <div class="row"><div><label>Preço adicional (R$)</label><input type="number" min="0" step=".01" data-p="${i}" data-k="price" value="${Number(p.price)||0}"></div><div><label>Custo interno (R$)</label><input type="number" min="0" step=".01" data-p="${i}" data-k="cost" value="${Number(p.cost)||0}"></div></div>
+ <label>Disponível para novas cestas</label><select data-p="${i}" data-k="active"><option value="true" ${p.active!==false?'selected':''}>Sim</option><option value="false" ${p.active===false?'selected':''}>Não</option></select>
+ <label>Fotografia</label><img class="preview" src="${esc(p.img)}" alt=""><input type="file" accept="image/*" data-upload-p="${i}">
+ <hr><button class="danger" data-delete-p="${i}">Excluir item</button></article>`).join('')}</div>`;
+ root.querySelectorAll('[data-p][data-k]').forEach(el=>el.onchange=()=>{const p=catalog.products[+el.dataset.p],k=el.dataset.k;p[k]=k==='price'||k==='cost'?Number(el.value):k==='active'?el.value==='true':el.value;setDirty()});
+ root.querySelectorAll('[data-delete-p]').forEach(el=>el.onclick=()=>{if(confirm('Excluir este item? Ele também será removido das cestas.')){const p=catalog.products.splice(+el.dataset.deleteP,1)[0];catalog.baskets.forEach(b=>delete b.items?.[p.id]);renderAll();setDirty()}});
+ root.querySelectorAll('[data-upload-p]').forEach(el=>el.onchange=async()=>{if(el.files[0]){try{catalog.products[+el.dataset.uploadP].img=await uploadImage(el.files[0]);renderProducts();setDirty()}catch(e){alert(e.message)}}});
+ $('newProduct').onclick=()=>{const n=prompt('Nome do novo item:');if(!n?.trim())return;catalog.products.push({id:slug(n)+'-'+Date.now().toString().slice(-4),name:n.trim(),desc:'',price:0,cost:0,img:'',active:true});renderAll();setDirty()};
+}
+function renderImages(){
+ const root=$('tab-images');
+ root.innerHTML=`<h2>Imagens gerais do site</h2><p>Troque as fotografias principais e a identidade visual da Ma Vie.</p>
+ ${[['hero','Imagem principal do banner'],['logo','Logotipo'],['essence','Imagem da seção Nossa essência'],['customer1','Foto da seção Momentos Ma Vie — 1'],['customer2','Foto da seção Momentos Ma Vie — 2']].map(([k,label])=>`<article class="item"><h3>${label}</h3><img class="preview" src="${esc(catalog.images[k]||'')}" alt=""><input type="file" accept="image/*" data-img="${k}"></article>`).join('')}`;
+ root.querySelectorAll('[data-img]').forEach(el=>el.onchange=async()=>{if(el.files[0]){try{catalog.images[el.dataset.img]=await uploadImage(el.files[0]);renderImages();setDirty()}catch(e){alert(e.message)}}});
+}
+async function uploadImage(file){
+ if(file.size>6*1024*1024)throw new Error('A imagem deve ter até 6 MB. Reduza o tamanho e tente novamente.');
+ const ext=(file.name.split('.').pop()||'jpg').toLowerCase().replace(/[^a-z0-9]/g,'')||'jpg';
+ const path=`imagens/${Date.now()}-${slug(file.name.replace(/\.[^.]+$/,''))}.${ext}`;
+ const content=await new Promise((resolve,reject)=>{const r=new FileReader();r.onload=()=>resolve(String(r.result).split(',')[1]);r.onerror=reject;r.readAsDataURL(file)});
+ const result=await api(`/repos/${OWNER}/${REPO}/contents/${path}`,{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:'Adicionar imagem pelo painel Ma Vie',content,branch:BRANCH})});
+ return `https://raw.githubusercontent.com/${OWNER}/${REPO}/${BRANCH}/${path}?v=${Date.now()}`;
+}
+$('saveBtn').onclick=async()=>{
+ if(!token)return; $('saveBtn').disabled=true;status($('saveStatus'),'Salvando catálogo no GitHub…');
+ try{
+  const current=await api(`/repos/${OWNER}/${REPO}/contents/${FILE}?ref=${BRANCH}`);
+  const content=btoa(unescape(encodeURIComponent(JSON.stringify(catalog,null,2))));
+  await api(`/repos/${OWNER}/${REPO}/contents/${FILE}`,{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:'Atualizar catálogo Ma Vie pelo painel',content,sha:current.sha,branch:BRANCH})});
+  dirty=false;await readCatalog();renderAll();status($('saveStatus'),'Catálogo salvo! O GitHub Pages pode levar alguns minutos para atualizar o site.','ok');
+ }catch(e){status($('saveStatus'),'Não foi possível salvar: '+e.message,'error')}
+ finally{$('saveBtn').disabled=false}
+};
+$('reloadBtn').onclick=async()=>{if(dirty&&!confirm('Descartar todas as alterações não salvas?'))return;try{await readCatalog();dirty=false;renderAll();status($('saveStatus'),'Catálogo recarregado do GitHub.','ok')}catch(e){status($('saveStatus'),e.message,'error')}};
+$('logoutBtn').onclick=()=>{if(dirty&&!confirm('Há alterações não salvas. Desconectar mesmo assim?'))return;token='';catalog=null;$('app').classList.add('hidden');$('connect').classList.remove('hidden');status($('connectStatus'),'Desconectado. O token não foi salvo.');};
+</script></body></html>
