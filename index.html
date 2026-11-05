@@ -1,62 +1,400 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Ma Vie | Cestas & Afeto</title>
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#fffdf9">
+<title>Ma Vie | Cestas &amp; Afeto</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#f7f2eb;--paper:#fffdf9;--ink:#39332e;--muted:#82776c;--gold:#b18b5d;--line:#e8ded1}*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:'DM Sans',sans-serif}.wrap{width:min(1100px,calc(100% - 32px));margin:auto}.top{background:#38312b;color:white;text-align:center;padding:9px;font-size:10px;letter-spacing:1.5px}.head{height:75px;border-bottom:1px solid var(--line);position:sticky;top:0;background:#fffdf9ed;z-index:5}.nav{height:100%;display:flex;justify-content:space-between;align-items:center}.logo{font:600 28px 'Playfair Display';letter-spacing:2px}.logo small{display:block;text-align:center;color:var(--gold);font:600 9px 'DM Sans';letter-spacing:4px}.brandmark{display:flex;align-items:center;height:66px}.brandmark img{display:block;max-width:190px;max-height:62px;width:auto;height:auto;object-fit:contain}.footerbrand img{max-width:165px;filter:none}.testimonials{display:grid;grid-template-columns:1fr 1fr;gap:22px}.testimonial{background:white;border:1px solid var(--line);overflow:hidden}.testimonial img{width:100%;height:320px;object-fit:cover;display:block}.testimonial div{padding:18px}.testimonial h3{font:23px 'Playfair Display';margin:0 0 6px}.testimonial p{font-size:12px;line-height:1.7;color:var(--muted);margin:0}.testimonial .smallnote{margin-top:9px;font-size:10px;color:var(--gold)}.nav a{font-size:12px;color:var(--ink);text-decoration:none;margin:0 10px}.btn{background:var(--ink);color:white;border:0;padding:13px 18px;font-size:11px;letter-spacing:.7px;cursor:pointer}.gold{background:var(--gold)}.light{background:transparent;border:1px solid var(--gold);color:var(--ink)}.hero{display:grid;grid-template-columns:1fr 1fr;background:var(--bg);min-height:470px}.heroText{padding:65px max(25px,calc((100vw - 1100px)/2));display:flex;flex-direction:column;justify-content:center}.eyebrow{font-size:10px;color:var(--gold);letter-spacing:2.5px;text-transform:uppercase}.hero h1{font:500 clamp(40px,5vw,60px)/1.1 'Playfair Display';margin:17px 0}.hero p{font-size:14px;line-height:1.8;color:var(--muted);max-width:430px}.heroImg{background:url('https://github.com/user-attachments/assets/17069455-d5a4-404e-8692-0779195b526b') center/cover;min-height:400px}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:15px}.strip{display:grid;grid-template-columns:repeat(3,1fr);padding:22px 0;border-bottom:1px solid var(--line);text-align:center}.strip div{font-size:11px;color:var(--muted);border-right:1px solid var(--line)}.strip div:last-child{border:0}.strip b{display:block;font:18px 'Playfair Display';color:var(--ink)}section{padding:70px 0}.soft{background:var(--bg)}.intro{text-align:center;max-width:620px;margin:0 auto 35px}.intro h2{font:500 40px 'Playfair Display';margin:12px 0}.intro p{font-size:13px;line-height:1.8;color:var(--muted)}.sizes{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.size{background:white;border:1px solid var(--line);cursor:pointer}.size.sel{border:2px solid var(--gold)}.size img{width:100%;height:190px;object-fit:cover}.size div{padding:18px}.size h3{font:24px 'Playfair Display';margin:0}.size p{font-size:12px;color:var(--muted);min-height:34px}.price{color:var(--gold);font-weight:bold;font-size:14px}.builder{display:grid;grid-template-columns:1.4fr .6fr;gap:22px}.products{display:grid;grid-template-columns:1fr 1fr;gap:12px}.product{display:grid;grid-template-columns:100px 1fr;background:white;border:1px solid var(--line)}.product img{width:100px;height:130px;object-fit:cover}.pi{padding:10px}.pi b{font:17px 'Playfair Display'}.pi p{font-size:10px;color:var(--muted)}.pi strong{font-size:12px;color:var(--gold)}.qty{display:flex;gap:9px;align-items:center;margin-top:7px}.qty button{background:white;border:1px solid var(--line);width:25px;height:24px}.summary{background:white;padding:20px;border:1px solid var(--line);height:max-content;position:sticky;top:90px}.summary h3{font:24px 'Playfair Display';margin:0 0 12px}.line{display:flex;justify-content:space-between;border-bottom:1px solid var(--line);padding:9px 0;font-size:12px}.total{font-size:16px;font-weight:bold;padding:15px 0}.note{background:#f1ebe2;padding:12px;color:var(--muted);font-size:11px;line-height:1.6;margin:12px 0}.summary .btn{width:100%;margin-top:8px}.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.step{background:white;border:1px solid var(--line);padding:22px}.step b{font:25px 'Playfair Display';color:var(--gold)}.step h3{font:20px 'Playfair Display'}.step p{font-size:12px;line-height:1.7;color:var(--muted)}footer{background:#302a25;color:white;padding:35px 0}.foot{display:flex;justify-content:space-between;align-items:center}.foot p{font-size:11px;color:#c7bcae}.modal{display:none;position:fixed;inset:0;background:#211b17aa;z-index:20;align-items:center;justify-content:center;padding:15px}.modal.open{display:flex}.box{background:white;padding:25px;width:min(540px,100%);max-height:90vh;overflow:auto;position:relative}.x{position:absolute;right:12px;top:8px;border:0;background:none;font-size:25px}.field{margin:12px 0}.field label{display:block;font-size:10px;color:var(--muted);margin-bottom:5px;text-transform:uppercase}.field input,.field textarea{width:100%;padding:12px;border:1px solid var(--line)}.admin{display:none;min-height:100vh;background:var(--bg)}.admin.show{display:block}.login{max-width:390px;margin:9vh auto;padding:28px;background:white}.adminbar{background:#332d27;color:white;padding:15px}.layout{display:grid;grid-template-columns:190px 1fr;gap:20px;padding:25px 0}.side,.panel,.stat{background:white;padding:17px;border:1px solid var(--line)}.side button{display:block;border:0;background:none;padding:12px;width:100%;text-align:left;font-size:12px}.side button.active{background:var(--bg)}.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.stat span{font-size:10px;color:var(--muted)}.stat strong{display:block;font:24px 'Playfair Display';margin-top:8px}.panel{margin-top:13px;overflow:auto}.panel h3{font:22px 'Playfair Display'}.table{width:100%;border-collapse:collapse;font-size:11px}.table td,.table th{text-align:left;padding:10px;border-bottom:1px solid var(--line);white-space:nowrap}.table th{color:var(--muted)}.order{background:white;border:1px solid var(--line);padding:15px;margin:10px 0;font-size:12px;line-height:1.7}.small{font-size:10px;color:var(--muted);line-height:1.5}
-@media(max-width:760px){.nav nav{display:none}.hero{grid-template-columns:1fr}.heroImg{min-height:270px;grid-row:1}.heroText{padding:40px 22px}.strip{grid-template-columns:1fr;gap:13px}.strip div{border:0}.sizes{grid-template-columns:1fr}.size{display:grid;grid-template-columns:38% 62%}.size img{height:100%;min-height:170px}.builder{grid-template-columns:1fr}.products{grid-template-columns:1fr}.summary{position:static}.steps{grid-template-columns:1fr}.testimonials{grid-template-columns:1fr}.testimonial img{height:280px}.brandmark img{max-width:155px;max-height:56px}.layout{grid-template-columns:1fr}.side{display:flex;overflow:auto}.side button{min-width:max-content}.stats{grid-template-columns:1fr 1fr}.foot{display:block}}
-</style></head><body>
-<div id="store"><div class="top">Feito com carinho para celebrar os pequenos grandes momentos</div><header class="head"><div class="wrap nav"><div class="brandmark"><img src="https://github.com/user-attachments/assets/be778b1d-a18e-4b6a-b3b7-729b52684f94" alt="Ma Vie — Cestas & Afeto"></div><nav><a href="#kits">Kits</a><a href="#montar">Personalize</a><a href="#como">Como funciona</a><a href="#marca">Nossa essência</a><a href="#recomendacoes">Clientes</a></nav><button class="btn" onclick="document.querySelector('#kits').scrollIntoView()">Escolher cesta</button></div></header>
-<div class="hero"><div class="heroText"><span class="eyebrow">Café, carinho e bons momentos</span><h1>Presentes que viram lembranças.</h1><p>Cestas preparadas com cuidado para surpreender em aniversários, datas especiais ou simplesmente para demonstrar carinho.</p><div class="actions"><button class="btn gold" onclick="document.querySelector('#kits').scrollIntoView()">Monte sua cesta</button><button class="btn light" onclick="document.querySelector('#como').scrollIntoView()">Como funciona</button></div></div><div class="heroImg" aria-label="Imagem principal de divulgação Ma Vie"></div></div>
-<div class="wrap strip"><div><b>Escolha simples</b>Kits para diferentes momentos</div><div><b>Personalize</b>Adicione ou retire produtos</div><div><b>Feito com carinho</b>Montagem cuidadosa</div></div>
-<section id="kits"><div class="wrap"><div class="intro"><span class="eyebrow">Encontre o tamanho ideal</span><h2>Uma cesta do seu jeito</h2><p>Escolha um tamanho para começar. Você pode ficar com a sugestão pronta ou personalizar os produtos.</p></div><div class="sizes" id="sizes"></div></div></section>
-<section class="soft" id="montar"><div class="wrap"><div class="intro"><span class="eyebrow">Do seu jeito</span><h2>Monte sua cesta</h2><p>Selecione um kit e ajuste os produtos conforme sua preferência.</p></div><div class="builder"><div><div class="note" id="selected">Escolha primeiro o tamanho da cesta acima.</div><div class="products" id="products"></div></div><aside class="summary"><h3>Seu pedido</h3><div id="summary">Selecione um tamanho.</div><div class="line"><span>Kit base</span><b id="base">R$ 0,00</b></div><div class="line"><span>Ajustes</span><b id="adjust">R$ 0,00</b></div><div class="line total"><span>Total estimado</span><b id="total">A partir de R$ 0,00</b></div><p class="small">Valor ilustrativo. A confirmação depende da disponibilidade e dos detalhes de entrega.</p><button class="btn gold" onclick="openOrder()">Continuar pedido</button><button class="btn light" style="width:100%;margin-top:8px" onclick="resetKit()">Restaurar kit sugerido</button></aside></div></div></section>
-<section id="como"><div class="wrap"><div class="intro"><span class="eyebrow">É simples assim</span><h2>Seu presente em poucos passos</h2></div><div class="steps"><div class="step"><b>01</b><h3>Escolha o tamanho</h3><p>Mini, médio ou grande. Cada opção começa com uma sugestão de produtos.</p></div><div class="step"><b>02</b><h3>Personalize</h3><p>Retire itens, acrescente seus favoritos e confira o valor estimado.</p></div><div class="step"><b>03</b><h3>Envie seu pedido</h3><p>Informe seus dados e combine retirada ou entrega.</p></div></div></div></section>
-<section id="marca"><div class="wrap"><div class="intro"><span class="eyebrow">Nossa essência</span><h2>Carinho em cada detalhe</h2><p>A identidade Ma Vie está nos pequenos cuidados: apresentação, escolha dos produtos e preparação de cada cesta.</p></div><div class="testimonials"><article class="testimonial"><img src="https://github.com/user-attachments/assets/58dd1972-e3ec-4035-9f46-1ef3039a5fc0" alt="Detalhes e identidade visual da Ma Vie"><div><h3>A identidade Ma Vie</h3><p>Uma apresentação pensada para tornar cada presente especial.</p></div></article><article class="testimonial"><img src="https://github.com/user-attachments/assets/fc936a82-1471-4f07-a71d-325a8427c0bb" alt="Detalhes e cuidados na preparação das cestas"><div><h3>Feito com cuidado</h3><p>Atenção aos detalhes em cada etapa da montagem.</p></div></article></div></div></section>
-<section class="soft" id="recomendacoes"><div class="wrap"><div class="intro"><span class="eyebrow">Experiências especiais</span><h2>Momentos Ma Vie</h2><p>Pessoas e momentos que representam o carinho presente em cada cesta.</p></div><div class="testimonials">
-<article class="testimonial"><img src="https://github.com/user-attachments/assets/40b84e6e-d5d6-4c06-b082-fbee1abecb3d" alt="Cliente segurando uma cesta Ma Vie"><div><h3>Uma experiência especial</h3><p>Uma lembrança especial para celebrar momentos importantes.</p><p class="smallnote">Fotografia ilustrativa de cliente.</p></div></article>
-<article class="testimonial"><img src="https://github.com/user-attachments/assets/17069455-d5a4-404e-8692-0779195b526b" alt="Cliente segurando uma cesta Ma Vie"><div><h3>Carinho que se compartilha</h3><p>Cestas preparadas para transformar gestos simples em boas lembranças.</p><p class="smallnote">Fotografia ilustrativa de cliente.</p></div></article>
-</div></div></section>
-<footer><div class="wrap foot"><div><div class="brandmark footerbrand"><img src="https://github.com/user-attachments/assets/be778b1d-a18e-4b6a-b3b7-729b52684f94" alt="Ma Vie — Cestas & Afeto"></div><p>Café, carinho e bons momentos.</p></div><div><p>WhatsApp: (51) 99999-0000 (fictício)<br>Instagram: @mavie.cestas (fictício)</p></div><button class="btn gold" onclick="document.querySelector('#kits').scrollIntoView()">Escolher cesta</button></div></footer></div>
-<div class="modal" id="orderModal"><div class="box"><button class="x" onclick="closeOrder()">×</button><span class="eyebrow">Quase pronto</span><h2 style="font:27px 'Playfair Display'">Dados para seu pedido</h2><form id="orderForm"><div class="field"><label>Nome do cliente</label><input id="name" required></div><div class="field"><label>Telefone / WhatsApp</label><input id="phone" required></div><div class="field"><label>Data desejada</label><input id="date" type="date" required></div><div class="field"><label>Horário de retirada</label><input id="time" type="time" required></div><div class="field"><label>Observações</label><textarea id="notes"></textarea></div><div class="note" id="review"></div><button class="btn gold" style="width:100%">Gerar pedido</button><p class="small">Demonstração: o pedido será salvo somente neste navegador, sem confirmação de disponibilidade ou pagamento.</p></form><div id="done" class="note" style="display:none"></div></div></div>
-<div class="admin" id="admin"><div class="top">Área restrita • demonstração</div><div class="login" id="login"><div class="logo">MA VIE<small>PAINEL DO SÓCIO</small></div><h2 style="font:26px 'Playfair Display'">Acesso administrativo</h2><div class="field"><label>Usuário</label><input id="user" value="socio@mavie.demo"></div><div class="field"><label>Senha</label><input id="pass" type="password" value="mavie123"></div><button class="btn gold" style="width:100%" onclick="loginAdmin()">Entrar</button><p class="small">Acesso demonstrativo: socio@mavie.demo / mavie123. Não é autenticação real.</p><button class="btn light" onclick="back()">Voltar à loja</button></div><div id="dashboard" style="display:none"><div class="adminbar"><div class="wrap" style="display:flex;justify-content:space-between"><b>MA VIE — GESTÃO</b><button class="btn gold" onclick="logout()">Sair</button></div></div><div class="wrap layout"><aside class="side"><button class="active" onclick="tab('home',this)">Resumo</button><button onclick="tab('orders',this)">Encomendas</button><button onclick="tab('costs',this)">Produtos e custos</button><button onclick="tab('agenda',this)">Agenda / retirada</button><button onclick="tab('traffic',this)">Acessos</button></aside><main id="content"></main></div></div></div>
+:root{--bg:#f7f2eb;--paper:#fffdf9;--ink:#39332e;--muted:#82776c;--gold:#b18b5d;--line:#e8ded1}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:90px}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:'DM Sans',sans-serif}
+img{max-width:100%}
+.wrap{width:min(1100px,calc(100% - 32px));margin:auto}
+.top{background:#38312b;color:white;text-align:center;padding:9px;font-size:10px;letter-spacing:1.5px}
+.head{min-height:75px;border-bottom:1px solid var(--line);position:relative;top:auto;background:#fffdf9f2;z-index:2;backdrop-filter:blur(8px)}
+.nav{min-height:75px;display:flex;justify-content:space-between;align-items:center;gap:18px}
+.logo{font:600 28px 'Playfair Display';letter-spacing:2px}
+.logo small{display:block;text-align:center;color:var(--gold);font:600 9px 'DM Sans';letter-spacing:4px}
+.brandmark{display:flex;align-items:center;height:66px}
+.brandmark img{display:block;max-width:190px;max-height:62px;width:auto;height:auto;object-fit:contain}
+.footerbrand img{max-width:165px;filter:none}
+.nav a{font-size:12px;color:var(--ink);text-decoration:none;margin:0 10px}
+.btn{background:var(--ink);color:white;border:0;padding:13px 18px;font-size:11px;letter-spacing:.7px;cursor:pointer}
+.btn:hover{opacity:.9}
+.gold{background:var(--gold)}
+.light{background:transparent;border:1px solid var(--gold);color:var(--ink)}
+.hero{display:grid;grid-template-columns:1fr 1fr;background:var(--bg);min-height:470px}
+.heroText{padding:65px max(25px,calc((100vw - 1100px)/2));display:flex;flex-direction:column;justify-content:center}
+.eyebrow{font-size:10px;color:var(--gold);letter-spacing:2.5px;text-transform:uppercase}
+.hero h1{font:500 clamp(40px,5vw,60px)/1.1 'Playfair Display';margin:17px 0}
+.hero p{font-size:14px;line-height:1.8;color:var(--muted);max-width:430px}
+.heroImg{min-width:0;display:flex;align-items:center;justify-content:center;background:var(--bg);overflow:hidden}
+.heroImg img{display:block;width:100%;height:100%;max-height:600px;object-fit:contain;object-position:center}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:15px}
+.strip{display:grid;grid-template-columns:repeat(3,1fr);padding:22px 0;border-bottom:1px solid var(--line);text-align:center}
+.strip div{font-size:11px;color:var(--muted);border-right:1px solid var(--line)}
+.strip div:last-child{border:0}
+.strip b{display:block;font:18px 'Playfair Display';color:var(--ink)}
+section{padding:70px 0}
+.soft{background:var(--bg)}
+.intro{text-align:center;max-width:620px;margin:0 auto 35px}
+.intro h2{font:500 40px 'Playfair Display';margin:12px 0}
+.intro p{font-size:13px;line-height:1.8;color:var(--muted)}
+.sizes{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.size{background:white;border:1px solid var(--line);cursor:pointer}
+.size.sel{border:2px solid var(--gold)}
+.size img{width:100%;height:190px;object-fit:cover;display:block}
+.size div{padding:18px}
+.size h3{font:24px 'Playfair Display';margin:0}
+.size p{font-size:12px;color:var(--muted);min-height:34px}
+.price{color:var(--gold);font-weight:bold;font-size:14px}
+.builder{display:grid;grid-template-columns:1.4fr .6fr;gap:22px}
+.products{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.product{display:grid;grid-template-columns:100px 1fr;background:white;border:1px solid var(--line);min-width:0}
+.product img{width:100px;height:130px;object-fit:cover;display:block}
+.pi{padding:10px}
+.pi b{font:17px 'Playfair Display'}
+.pi p{font-size:10px;color:var(--muted)}
+.pi strong{font-size:12px;color:var(--gold)}
+.qty{display:flex;gap:9px;align-items:center;margin-top:7px}
+.qty button{background:white;border:1px solid var(--line);width:25px;height:24px;cursor:pointer}
+.summary{background:white;padding:20px;border:1px solid var(--line);height:max-content;position:sticky;top:90px}
+.summary h3{font:24px 'Playfair Display';margin:0 0 12px}
+.line{display:flex;justify-content:space-between;gap:12px;border-bottom:1px solid var(--line);padding:9px 0;font-size:12px}
+.total{font-size:16px;font-weight:bold;padding:15px 0}
+.note{background:#f1ebe2;padding:12px;color:var(--muted);font-size:11px;line-height:1.6;margin:12px 0}
+.summary .btn{width:100%;margin-top:8px}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.step{background:white;border:1px solid var(--line);padding:22px}
+.step b{font:25px 'Playfair Display';color:var(--gold)}
+.step h3{font:20px 'Playfair Display'}
+.step p{font-size:12px;line-height:1.7;color:var(--muted)}
+.testimonials{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.testimonial{background:white;border:1px solid var(--line);overflow:hidden;min-width:0}
+.testimonial img{width:100%;height:auto;max-height:420px;object-fit:contain;object-position:center;background:var(--bg);display:block}
+.testimonial div{padding:18px}
+.testimonial h3{font:23px 'Playfair Display';margin:0 0 6px}
+.testimonial p{font-size:12px;line-height:1.7;color:var(--muted);margin:0}
+.testimonial .smallnote{margin-top:9px;font-size:10px;color:var(--gold)}
+footer{background:#302a25;color:white;padding:35px 0}
+.foot{display:flex;justify-content:space-between;align-items:center;gap:20px}
+.foot p{font-size:11px;color:#c7bcae}
+.modal{display:none;position:fixed;inset:0;background:#211b17aa;z-index:20;align-items:center;justify-content:center;padding:15px}
+.modal.open{display:flex}
+.box{background:white;padding:25px;width:min(540px,100%);max-height:90vh;overflow:auto;position:relative}
+.x{position:absolute;right:12px;top:8px;border:0;background:none;font-size:25px;cursor:pointer}
+.field{margin:12px 0}
+.field label{display:block;font-size:10px;color:var(--muted);margin-bottom:5px;text-transform:uppercase}
+.field input,.field textarea{width:100%;padding:12px;border:1px solid var(--line);font:inherit}
+.admin{display:none;min-height:100vh;background:var(--bg)}
+.admin.show{display:block}
+.login{max-width:390px;margin:9vh auto;padding:28px;background:white}
+.adminbar{background:#332d27;color:white;padding:15px}
+.layout{display:grid;grid-template-columns:190px 1fr;gap:20px;padding:25px 0}
+.side,.panel,.stat{background:white;padding:17px;border:1px solid var(--line)}
+.side button{display:block;border:0;background:none;padding:12px;width:100%;text-align:left;font-size:12px;cursor:pointer}
+.side button.active{background:var(--bg)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.stat span{font-size:10px;color:var(--muted)}
+.stat strong{display:block;font:24px 'Playfair Display';margin-top:8px}
+.panel{margin-top:13px;overflow:auto}
+.panel h3{font:22px 'Playfair Display'}
+.table{width:100%;border-collapse:collapse;font-size:11px}
+.table td,.table th{text-align:left;padding:10px;border-bottom:1px solid var(--line);white-space:nowrap}
+.table th{color:var(--muted)}
+.order{background:white;border:1px solid var(--line);padding:15px;margin:10px 0;font-size:12px;line-height:1.7}
+.small{font-size:10px;color:var(--muted);line-height:1.5}
+@media(max-width:760px){
+ .nav nav{display:none}
+ .hero{grid-template-columns:1fr;min-height:0}
+ .heroImg{grid-row:1;min-height:0;padding:0}
+ .heroImg img{width:100%;height:auto;max-height:none;object-fit:contain}
+ .heroText{padding:40px 22px}
+ .strip{grid-template-columns:1fr;gap:13px}
+ .strip div{border:0}
+ .sizes{grid-template-columns:1fr}
+ .size{display:grid;grid-template-columns:38% 62%}
+ .size img{height:100%;min-height:170px}
+ .builder{grid-template-columns:1fr}
+ .products{grid-template-columns:1fr}
+ .summary{position:static}
+ .steps{grid-template-columns:1fr}
+ .testimonials{grid-template-columns:1fr}
+ .testimonial img{height:auto;max-height:none;object-fit:contain}
+ .brandmark img{max-width:155px;max-height:56px}
+ .layout{grid-template-columns:1fr}
+ .side{display:flex;overflow:auto}
+ .side button{min-width:max-content}
+ .stats{grid-template-columns:1fr 1fr}
+ .foot{display:block}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div id="store">
+ <div class="top">Feito com carinho para celebrar os pequenos grandes momentos</div>
+ <header class="head">
+  <div class="wrap nav">
+   <div class="brandmark"><img src="https://github.com/user-attachments/assets/be778b1d-a18e-4b6a-b3b7-729b52684f94" alt="Ma Vie — Cestas &amp; Afeto" decoding="async"></div>
+   <nav><a href="#kits">Kits</a><a href="#montar">Personalize</a><a href="#como">Como funciona</a><a href="#marca">Nossa essência</a><a href="#recomendacoes">Clientes</a></nav>
+   <button class="btn" onclick="document.querySelector('#kits').scrollIntoView({behavior:'smooth'})">Escolher cesta</button>
+  </div>
+ </header>
+
+ <main>
+  <div class="hero">
+   <div class="heroText">
+    <span class="eyebrow">Café, carinho e bons momentos</span>
+    <h1>Presentes que viram lembranças.</h1>
+    <p>Cestas preparadas com cuidado para surpreender em aniversários, datas especiais ou simplesmente para demonstrar carinho.</p>
+    <div class="actions">
+     <button class="btn gold" onclick="document.querySelector('#kits').scrollIntoView({behavior:'smooth'})">Monte sua cesta</button>
+     <button class="btn light" onclick="document.querySelector('#como').scrollIntoView({behavior:'smooth'})">Como funciona</button>
+    </div>
+   </div>
+   <div class="heroImg">
+    <img src="https://github.com/user-attachments/assets/17069455-d5a4-404e-8692-0779195b526b" alt="Imagem principal de divulgação Ma Vie" fetchpriority="high" decoding="async">
+   </div>
+  </div>
+
+  <div class="wrap strip">
+   <div><b>Escolha simples</b>Kits para diferentes momentos</div>
+   <div><b>Personalize</b>Adicione ou retire produtos</div>
+   <div><b>Feito com carinho</b>Montagem cuidadosa</div>
+  </div>
+
+  <section id="kits">
+   <div class="wrap">
+    <div class="intro"><span class="eyebrow">Encontre o tamanho ideal</span><h2>Uma cesta do seu jeito</h2><p>Escolha um tamanho para começar. Você pode ficar com a sugestão pronta ou personalizar os produtos.</p></div>
+    <div class="sizes" id="sizes"></div>
+   </div>
+  </section>
+
+  <section class="soft" id="montar">
+   <div class="wrap">
+    <div class="intro"><span class="eyebrow">Do seu jeito</span><h2>Monte sua cesta</h2><p>Selecione um kit e ajuste os produtos conforme sua preferência.</p></div>
+    <div class="builder">
+     <div><div class="note" id="selected">Escolha primeiro o tamanho da cesta acima.</div><div class="products" id="products"></div></div>
+     <aside class="summary">
+      <h3>Seu pedido</h3><div id="summary">Selecione um tamanho.</div>
+      <div class="line"><span>Kit base</span><b id="base">R$ 0,00</b></div>
+      <div class="line"><span>Ajustes</span><b id="adjust">R$ 0,00</b></div>
+      <div class="line total"><span>Total estimado</span><b id="total">A partir de R$ 0,00</b></div>
+      <p class="small">Valor ilustrativo. A confirmação depende da disponibilidade e dos detalhes de entrega.</p>
+      <button class="btn gold" onclick="openOrder()">Continuar pedido</button>
+      <button class="btn light" style="width:100%;margin-top:8px" onclick="resetKit()">Restaurar kit sugerido</button>
+     </aside>
+    </div>
+   </div>
+  </section>
+
+  <section id="como">
+   <div class="wrap">
+    <div class="intro"><span class="eyebrow">É simples assim</span><h2>Seu presente em poucos passos</h2></div>
+    <div class="steps">
+     <div class="step"><b>01</b><h3>Escolha o tamanho</h3><p>Mini, médio ou grande. Cada opção começa com uma sugestão de produtos.</p></div>
+     <div class="step"><b>02</b><h3>Personalize</h3><p>Retire itens, acrescente seus favoritos e confira o valor estimado.</p></div>
+     <div class="step"><b>03</b><h3>Envie seu pedido</h3><p>Informe seus dados e combine retirada ou entrega.</p></div>
+    </div>
+   </div>
+  </section>
+
+  <section id="marca">
+   <div class="wrap">
+    <div class="intro"><span class="eyebrow">Nossa essência</span><h2>Carinho em cada detalhe</h2><p>A identidade Ma Vie está nos pequenos cuidados: apresentação, escolha dos produtos e preparação de cada cesta.</p></div>
+    <div class="testimonials">
+     <article class="testimonial"><img loading="lazy" decoding="async" src="https://github.com/user-attachments/assets/58dd1972-e3ec-4035-9f46-1ef3039a5fc0" alt="Detalhes e identidade visual da Ma Vie"><div><h3>A identidade Ma Vie</h3><p>Uma apresentação pensada para tornar cada presente especial.</p></div></article>
+     <article class="testimonial"><img loading="lazy" decoding="async" src="https://github.com/user-attachments/assets/fc936a82-1471-4f07-a71d-325a8427c0bb" alt="Detalhes e cuidados na preparação das cestas"><div><h3>Feito com cuidado</h3><p>Atenção aos detalhes em cada etapa da montagem.</p></div></article>
+    </div>
+   </div>
+  </section>
+
+  <section class="soft" id="recomendacoes">
+   <div class="wrap">
+    <div class="intro"><span class="eyebrow">Experiências especiais</span><h2>Momentos Ma Vie</h2><p>Pessoas e momentos que representam o carinho presente em cada cesta.</p></div>
+    <div class="testimonials">
+     <article class="testimonial"><img loading="lazy" decoding="async" src="https://github.com/user-attachments/assets/40b84e6e-d5d6-4c06-b082-fbee1abecb3d" alt="Cliente segurando uma cesta Ma Vie"><div><h3>Uma experiência especial</h3><p>Uma lembrança especial para celebrar momentos importantes.</p><p class="smallnote">Fotografia ilustrativa de cliente.</p></div></article>
+     <article class="testimonial"><img loading="lazy" decoding="async" src="https://github.com/user-attachments/assets/17069455-d5a4-404e-8692-0779195b526b" alt="Cliente segurando uma cesta Ma Vie"><div><h3>Carinho que se compartilha</h3><p>Cestas preparadas para transformar gestos simples em boas lembranças.</p><p class="smallnote">Fotografia ilustrativa de cliente.</p></div></article>
+    </div>
+   </div>
+  </section>
+ </main>
+
+ <footer>
+  <div class="wrap foot">
+   <div><div class="brandmark footerbrand"><img loading="lazy" decoding="async" src="https://github.com/user-attachments/assets/be778b1d-a18e-4b6a-b3b7-729b52684f94" alt="Ma Vie — Cestas &amp; Afeto"></div><p>Café, carinho e bons momentos.</p></div>
+   <div><p>WhatsApp: (51) 99999-0000 (fictício)<br>Instagram: @mavie.cestas (fictício)</p></div>
+   <button class="btn gold" onclick="document.querySelector('#kits').scrollIntoView({behavior:'smooth'})">Escolher cesta</button>
+  </div>
+ </footer>
+</div>
+
+<div class="modal" id="orderModal">
+ <div class="box">
+  <button class="x" onclick="closeOrder()" aria-label="Fechar">×</button>
+  <span class="eyebrow">Quase pronto</span><h2 style="font:27px 'Playfair Display'">Dados para seu pedido</h2>
+  <form id="orderForm">
+   <div class="field"><label for="name">Nome do cliente</label><input id="name" required></div>
+   <div class="field"><label for="phone">Telefone / WhatsApp</label><input id="phone" required></div>
+   <div class="field"><label for="date">Data desejada</label><input id="date" type="date" required></div>
+   <div class="field"><label for="time">Horário de retirada</label><input id="time" type="time" required></div>
+   <div class="field"><label for="notes">Observações</label><textarea id="notes"></textarea></div>
+   <div class="note" id="review"></div>
+   <button class="btn gold" style="width:100%">Gerar pedido</button>
+   <p class="small">Demonstração: o pedido será salvo somente neste navegador, sem confirmação de disponibilidade ou pagamento.</p>
+  </form>
+  <div id="done" class="note" style="display:none"></div>
+ </div>
+</div>
+
+<div class="admin" id="admin">
+ <div class="top">Área restrita • demonstração</div>
+ <div class="login" id="login">
+  <div class="logo">MA VIE<small>PAINEL DO SÓCIO</small></div>
+  <h2 style="font:26px 'Playfair Display'">Acesso administrativo</h2>
+  <div class="field"><label for="user">Usuário</label><input id="user" value="socio@mavie.demo"></div>
+  <div class="field"><label for="pass">Senha</label><input id="pass" type="password" value="mavie123"></div>
+  <button class="btn gold" style="width:100%" onclick="loginAdmin()">Entrar</button>
+  <p class="small">Acesso demonstrativo: socio@mavie.demo / mavie123. Não é autenticação real.</p>
+  <button class="btn light" onclick="back()">Voltar à loja</button>
+ </div>
+ <div id="dashboard" style="display:none">
+  <div class="adminbar"><div class="wrap" style="display:flex;justify-content:space-between"><b>MA VIE — GESTÃO</b><button class="btn gold" onclick="logout()">Sair</button></div></div>
+  <div class="wrap layout">
+   <aside class="side">
+    <button class="active" onclick="tab('home',this)">Resumo</button><button onclick="tab('orders',this)">Encomendas</button><button onclick="tab('costs',this)">Produtos e custos</button><button onclick="tab('agenda',this)">Agenda / retirada</button><button onclick="tab('traffic',this)">Acessos</button>
+   </aside>
+   <main id="content"></main>
+  </div>
+ </div>
+</div>
+
 <script>
 const P=[
-['coffee','Café especial','Pacote ou sachês selecionados',18,9,'https://github.com/user-attachments/assets/f98dba3c-cdc3-4563-af52-0594312b6bbf'],
-['juice','Suco integral','Garrafa individual',14,7,'https://github.com/user-attachments/assets/58dd1972-e3ec-4035-9f46-1ef3039a5fc0'],
-['croissant','Croissant','Unidade artesanal',12,5.5,'https://github.com/user-attachments/assets/fc936a82-1471-4f07-a71d-325a8427c0bb'],
-['cookies','Cookies','Porção embalada',10,4,'https://github.com/user-attachments/assets/40b84e6e-d5d6-4c06-b082-fbee1abecb3d'],
-['jam','Geleia artesanal','Pote pequeno',16,8,'https://github.com/user-attachments/assets/17069455-d5a4-404e-8692-0779195b526b'],
-['choco','Chocolate','Barra ou caixa pequena',15,7,'https://github.com/user-attachments/assets/f98dba3c-cdc3-4563-af52-0594312b6bbf'],
-['fruit','Frutas selecionadas','Porção da estação',13,6,'https://github.com/user-attachments/assets/58dd1972-e3ec-4035-9f46-1ef3039a5fc0'],
-['mug','Caneca presenteável','Item decorativo',28,14,'https://github.com/user-attachments/assets/fc936a82-1471-4f07-a71d-325a8427c0bb'],
-['flowers','Mini arranjo floral','Flores da estação',32,17,'https://github.com/user-attachments/assets/40b84e6e-d5d6-4c06-b082-fbee1abecb3d']
-].map(x=>({id:x[0],name:x[1],desc:x[2],price:x[3],cost:x[4],img:x[5]+'?auto=format&fit=crop&w=500&q=80'}));
-const S={Mini:{base:59,desc:'Um gesto delicado para surpreender.',img:'https://github.com/user-attachments/assets/fd0a5a15-8265-45df-8884-bca1a9a48f83',items:{coffee:1,croissant:1,cookies:1,juice:1}},Médio:{base:109,desc:'Uma seleção mais completa para compartilhar.',img:'https://github.com/user-attachments/assets/f98dba3c-cdc3-4563-af52-0594312b6bbf',items:{coffee:1,croissant:2,cookies:1,juice:1,jam:1,choco:1}},Grande:{base:179,desc:'Uma experiência generosa, cheia de detalhes.',img:'https://github.com/user-attachments/assets/fc936a82-1471-4f07-a71d-325a8427c0bb',items:{coffee:1,croissant:2,cookies:2,juice:2,jam:1,choco:2,fruit:1,mug:1,flowers:1}}};
-let chosen=null,bag={},orders=JSON.parse(localStorage.getItem('mavie_orders')||'[]');
-const fmt=n=>n.toLocaleString('pt-BR',{style:'currency',currency:'BRL'}), pack={Mini:12,Médio:18,Grande:27};
-localStorage.setItem('mavie_views',String(+(localStorage.getItem('mavie_views')||0)+1));
-function renderSizes(){document.getElementById('sizes').innerHTML=Object.entries(S).map(([n,s])=>`<article class="size ${chosen===n?'sel':''}" onclick="choose('${n}')"><img src="${s.img}"><div><h3>${n}</h3><p>${s.desc}</p><b class="price">A partir de ${fmt(s.base)}</b><p><button class="btn">Escolher ${n}</button></p></div></article>`).join('')}
-function choose(n){chosen=n;bag={...S[n].items};renderSizes();renderProducts();update();document.getElementById('selected').textContent='Kit '+n+' selecionado. Ajuste as quantidades para personalizar.';document.getElementById('montar').scrollIntoView({behavior:'smooth'})}
-function renderProducts(){document.getElementById('products').innerHTML=P.map(p=>`<article class="product"><img src="${p.img}" alt="${p.name}"><div class="pi"><b>${p.name}</b><p>${p.desc}</p><strong>${fmt(p.price)}</strong><div class="qty"><button onclick="qty('${p.id}',-1)">−</button><span>${bag[p.id]||0}</span><button onclick="qty('${p.id}',1)">+</button></div></div></article>`).join('')}
+ ['coffee','Café especial','Pacote ou sachês selecionados',18,9,'https://github.com/user-attachments/assets/f98dba3c-cdc3-4563-af52-0594312b6bbf'],
+ ['juice','Suco integral','Garrafa individual',14,7,'https://github.com/user-attachments/assets/58dd1972-e3ec-4035-9f46-1ef3039a5fc0'],
+ ['croissant','Croissant','Unidade artesanal',12,5.5,'https://github.com/user-attachments/assets/fc936a82-1471-4f07-a71d-325a8427c0bb'],
+ ['cookies','Cookies','Porção embalada',10,4,'https://github.com/user-attachments/assets/40b84e6e-d5d6-4c06-b082-fbee1abecb3d'],
+ ['jam','Geleia artesanal','Pote pequeno',16,8,'https://github.com/user-attachments/assets/17069455-d5a4-404e-8692-0779195b526b'],
+ ['choco','Chocolate','Barra ou caixa pequena',15,7,'https://github.com/user-attachments/assets/f98dba3c-cdc3-4563-af52-0594312b6bbf'],
+ ['fruit','Frutas selecionadas','Porção da estação',13,6,'https://github.com/user-attachments/assets/58dd1972-e3ec-4035-9f46-1ef3039a5fc0'],
+ ['mug','Caneca presenteável','Item decorativo',28,14,'https://github.com/user-attachments/assets/fc936a82-1471-4f07-a71d-325a8427c0bb'],
+ ['flowers','Mini arranjo floral','Flores da estação',32,17,'https://github.com/user-attachments/assets/40b84e6e-d5d6-4c06-b082-fbee1abecb3d']
+].map(x=>({id:x[0],name:x[1],desc:x[2],price:x[3],cost:x[4],img:x[5]}));
+
+const S={
+ Mini:{base:59,desc:'Um gesto delicado para surpreender.',img:'https://github.com/user-attachments/assets/fd0a5a15-8265-45df-8884-bca1a9a48f83',items:{coffee:1,croissant:1,cookies:1,juice:1}},
+ Médio:{base:109,desc:'Uma seleção mais completa para compartilhar.',img:'https://github.com/user-attachments/assets/f98dba3c-cdc3-4563-af52-0594312b6bbf',items:{coffee:1,croissant:2,cookies:1,juice:1,jam:1,choco:1}},
+ Grande:{base:179,desc:'Uma experiência generosa, cheia de detalhes.',img:'https://github.com/user-attachments/assets/fc936a82-1471-4f07-a71d-325a8427c0bb',items:{coffee:1,croissant:2,cookies:2,juice:2,jam:1,choco:2,fruit:1,mug:1,flowers:1}}
+};
+
+let chosen=null,bag={};
+let orders=loadOrders();
+const fmt=n=>n.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
+const pack={Mini:12,Médio:18,Grande:27};
+
+function loadOrders(){
+ try{return JSON.parse(localStorage.getItem('mavie_orders')||'[]')}catch{return []}
+}
+function saveLocal(key,value){
+ try{localStorage.setItem(key,value);return true}catch(error){console.warn('Não foi possível salvar no navegador:',error);return false}
+}
+saveLocal('mavie_views',String(+(localStorage.getItem('mavie_views')||0)+1));
+
+function renderSizes(){
+ document.getElementById('sizes').innerHTML=Object.entries(S).map(([n,s])=>
+  `<article class="size ${chosen===n?'sel':''}" onclick="choose('${n}')">
+   <img src="${s.img}" alt="Cesta ${n}" loading="lazy" decoding="async">
+   <div><h3>${n}</h3><p>${s.desc}</p><b class="price">A partir de ${fmt(s.base)}</b><p><button class="btn" type="button">Escolher ${n}</button></p></div>
+  </article>`).join('');
+}
+function choose(n){
+ chosen=n;bag={...S[n].items};renderSizes();renderProducts();update();
+ document.getElementById('selected').textContent='Kit '+n+' selecionado. Ajuste as quantidades para personalizar.';
+ document.getElementById('montar').scrollIntoView({behavior:'smooth'});
+}
+function renderProducts(){
+ document.getElementById('products').innerHTML=P.map(p=>
+  `<article class="product">
+   <img src="${p.img}" alt="${p.name}" loading="lazy" decoding="async">
+   <div class="pi"><b>${p.name}</b><p>${p.desc}</p><strong>${fmt(p.price)}</strong>
+    <div class="qty"><button type="button" aria-label="Remover ${p.name}" onclick="qty('${p.id}',-1)">−</button><span>${bag[p.id]||0}</span><button type="button" aria-label="Adicionar ${p.name}" onclick="qty('${p.id}',1)">+</button></div>
+   </div>
+  </article>`).join('');
+}
 function qty(id,d){bag[id]=Math.max(0,(bag[id]||0)+d);renderProducts();update()}
-function calc(){let val=Object.entries(bag).reduce((a,[id,q])=>a+P.find(p=>p.id===id).price*q,0),std=chosen?Object.entries(S[chosen].items).reduce((a,[id,q])=>a+P.find(p=>p.id===id).price*q,0):0;let base=chosen?S[chosen].base:0,cost=Object.entries(bag).reduce((a,[id,q])=>a+P.find(p=>p.id===id).cost*q,0)+(chosen?pack[chosen]:0);return{base,delta:val-std,total:Math.max(0,base+val-std),cost}}
-function update(){let c=calc();document.getElementById('summary').innerHTML=Object.entries(bag).filter(x=>x[1]>0).map(([id,q])=>`<div class="line"><span>${P.find(p=>p.id===id).name} × ${q}</span><b>${fmt(P.find(p=>p.id===id).price*q)}</b></div>`).join('')||'Sem itens';document.getElementById('base').textContent=fmt(c.base);document.getElementById('adjust').textContent=(c.delta>=0?'+ ':'− ')+fmt(Math.abs(c.delta));document.getElementById('total').textContent='A partir de '+fmt(c.total)}
+function calc(){
+ const val=Object.entries(bag).reduce((a,[id,q])=>a+P.find(p=>p.id===id).price*q,0);
+ const std=chosen?Object.entries(S[chosen].items).reduce((a,[id,q])=>a+P.find(p=>p.id===id).price*q,0):0;
+ const base=chosen?S[chosen].base:0;
+ const cost=Object.entries(bag).reduce((a,[id,q])=>a+P.find(p=>p.id===id).cost*q,0)+(chosen?pack[chosen]:0);
+ return{base,delta:val-std,total:Math.max(0,base+val-std),cost};
+}
+function update(){
+ const c=calc();
+ document.getElementById('summary').innerHTML=Object.entries(bag).filter(x=>x[1]>0).map(([id,q])=>
+  `<div class="line"><span>${P.find(p=>p.id===id).name} × ${q}</span><b>${fmt(P.find(p=>p.id===id).price*q)}</b></div>`).join('')||'Sem itens';
+ document.getElementById('base').textContent=fmt(c.base);
+ document.getElementById('adjust').textContent=(c.delta>=0?'+ ':'− ')+fmt(Math.abs(c.delta));
+ document.getElementById('total').textContent='A partir de '+fmt(c.total);
+}
 function resetKit(){if(chosen){bag={...S[chosen].items};renderProducts();update()}}
-function openOrder(){if(!chosen||!Object.values(bag).some(x=>x>0)){alert('Escolha um tamanho e pelo menos um item.');return}document.getElementById('review').innerHTML='Kit '+chosen+' — '+Object.entries(bag).filter(x=>x[1]>0).map(([id,q])=>q+' × '+P.find(p=>p.id===id).name).join(', ')+'<br><b>Total estimado: '+fmt(calc().total)+'</b>';document.getElementById('orderModal').classList.add('open');document.getElementById('done').style.display='none';document.getElementById('orderForm').style.display='block'}
+function openOrder(){
+ if(!chosen||!Object.values(bag).some(x=>x>0)){alert('Escolha um tamanho e pelo menos um item.');return}
+ document.getElementById('review').innerHTML='Kit '+chosen+' — '+Object.entries(bag).filter(x=>x[1]>0).map(([id,q])=>q+' × '+P.find(p=>p.id===id).name).join(', ')+'<br><b>Total estimado: '+fmt(calc().total)+'</b>';
+ document.getElementById('orderModal').classList.add('open');
+ document.getElementById('done').style.display='none';
+ document.getElementById('orderForm').style.display='block';
+}
 function closeOrder(){document.getElementById('orderModal').classList.remove('open')}
-document.getElementById('orderForm').onsubmit=e=>{e.preventDefault();let c=calc(),o={id:Date.now(),name:document.getElementById('name').value,phone:document.getElementById('phone').value,date:document.getElementById('date').value,time:document.getElementById('time').value,notes:document.getElementById('notes').value,size:chosen,items:{...bag},total:c.total,cost:c.cost};orders.push(o);localStorage.setItem('mavie_orders',JSON.stringify(orders));document.getElementById('orderForm').style.display='none';document.getElementById('done').style.display='block';document.getElementById('done').innerHTML='Pedido demonstrativo registrado. O sócio poderá visualizá-lo no painel neste navegador. <button class="btn" onclick="closeOrder();showAdmin()">Abrir painel</button>'};
+document.getElementById('orderForm').onsubmit=e=>{
+ e.preventDefault();
+ const c=calc();
+ const o={id:Date.now(),name:document.getElementById('name').value,phone:document.getElementById('phone').value,date:document.getElementById('date').value,time:document.getElementById('time').value,notes:document.getElementById('notes').value,size:chosen,items:{...bag},total:c.total,cost:c.cost};
+ orders.push(o);saveLocal('mavie_orders',JSON.stringify(orders));
+ document.getElementById('orderForm').style.display='none';
+ document.getElementById('done').style.display='block';
+ document.getElementById('done').innerHTML='Pedido demonstrativo registrado neste navegador. <button class="btn" onclick="closeOrder();showAdmin()">Abrir painel</button>';
+};
 function showAdmin(){document.getElementById('store').style.display='none';document.getElementById('admin').classList.add('show')}
 function back(){document.getElementById('admin').classList.remove('show');document.getElementById('store').style.display='block'}
-function loginAdmin(){if(document.getElementById('user').value==='socio@mavie.demo'&&document.getElementById('pass').value==='mavie123'){document.getElementById('login').style.display='none';document.getElementById('dashboard').style.display='block';tab('home',document.querySelector('.side button'))}else alert('Confira os dados demonstrativos.')}
-function logout(){dashboard.style.display='none';login.style.display='block'}
+function loginAdmin(){
+ if(document.getElementById('user').value==='socio@mavie.demo'&&document.getElementById('pass').value==='mavie123'){
+  document.getElementById('login').style.display='none';document.getElementById('dashboard').style.display='block';tab('home',document.querySelector('.side button'));
+ }else alert('Confira os dados demonstrativos.');
+}
+function logout(){document.getElementById('dashboard').style.display='none';document.getElementById('login').style.display='block'}
 function itemList(o){return Object.entries(o.items).filter(x=>x[1]>0).map(([id,q])=>q+'x '+P.find(p=>p.id===id).name).join(', ')}
-function tab(k,el){document.querySelectorAll('.side button').forEach(b=>b.classList.remove('active'));if(el)el.classList.add('active');let revenue=orders.reduce((a,o)=>a+o.total,0),cost=orders.reduce((a,o)=>a+o.cost,0),out=document.getElementById('content');let ordersHtml=orders.slice().reverse().map(o=>`<div class="order"><b>${o.name}</b><br>Telefone: ${o.phone}<br>Pedido: ${o.size} — ${itemList(o)}<br>Retirada: ${o.date} às ${o.time}<br>Estimativa: ${fmt(o.total)}<br>Observações: ${o.notes||'—'}<br><button class="btn" onclick="copyOrder(${o.id})">Copiar resumo para agenda</button></div>`).join('')||'<div class="panel">Ainda não há pedidos.</div>';
-let pages={
-home:`<h1 style="font:32px 'Playfair Display'">Resumo do negócio</h1><div class="stats"><div class="stat"><span>Acessos registrados</span><strong>${localStorage.getItem('mavie_views')||1}</strong></div><div class="stat"><span>Pedidos</span><strong>${orders.length}</strong></div><div class="stat"><span>Encomendas estimadas</span><strong>${fmt(revenue)}</strong></div><div class="stat"><span>Margem estimada*</span><strong>${fmt(revenue-cost)}</strong></div></div><div class="panel"><h3>Pedidos recentes</h3>${ordersHtml}</div><p class="small">*Estimativa após custo cadastrado de produtos e embalagem-base; não é lucro líquido e não inclui despesas, tributos, taxas ou entrega.</p>`,
-orders:`<h1 style="font:32px 'Playfair Display'">Encomendas</h1>${ordersHtml}`,
-costs:`<h1 style="font:32px 'Playfair Display'">Produtos e custos</h1><div class="panel"><table class="table"><tr><th>Produto</th><th>Preço venda</th><th>Custo</th><th>Diferença</th></tr>${P.map(p=>`<tr><td>${p.name}</td><td>${fmt(p.price)}</td><td>${fmt(p.cost)}</td><td>${fmt(p.price-p.cost)}</td></tr>`).join('')}</table></div><div class="panel"><h3>Custo estimado por kit</h3><table class="table"><tr><th>Kit</th><th>Custo produtos + embalagem</th><th>Preço inicial</th></tr>${Object.entries(S).map(([n,s])=>`<tr><td>${n}</td><td>${fmt(Object.entries(s.items).reduce((a,[id,q])=>a+P.find(p=>p.id===id).cost*q,0)+pack[n])}</td><td>${fmt(s.base)}</td></tr>`).join('')}</table></div>`,
-agenda:`<h1 style="font:32px 'Playfair Display'">Agenda / retirada</h1><p class="small">Mini formulário pré-preenchido a partir das encomendas.</p>${ordersHtml}`,
-traffic:`<h1 style="font:32px 'Playfair Display'">Acessos à página</h1><div class="stats"><div class="stat"><span>Carregamentos registrados</span><strong>${localStorage.getItem('mavie_views')||1}</strong></div><div class="stat"><span>Pedidos gerados</span><strong>${orders.length}</strong></div><div class="stat"><span>Conversão ilustrativa</span><strong>${(orders.length/Math.max(1,+(localStorage.getItem('mavie_views')||1))*100).toFixed(1)}%</strong></div><div class="stat"><span>Valor estimado</span><strong>${fmt(revenue)}</strong></div></div><div class="panel small">Contagem local demonstrativa: não mede visitantes únicos nem acessos de todos os dispositivos. Para analytics real, será necessário integrar uma ferramenta apropriada e informar os visitantes na política de privacidade.</div>`
-};out.innerHTML=pages[k]}
-function copyOrder(id){let o=orders.find(x=>x.id===id),txt=`CLIENTE: ${o.name}\\nTELEFONE: ${o.phone}\\nPEDIDO: ${o.size} — ${itemList(o)}\\nVALOR: ${fmt(o.total)}\\nRETIRADA: ${o.date} às ${o.time}\\nOBS: ${o.notes||'—'}`;if(navigator.clipboard)navigator.clipboard.writeText(txt).then(()=>alert('Resumo copiado.'));else alert(txt)}
-renderSizes();document.addEventListener('keydown',e=>{if(e.altKey&&e.key.toLowerCase()==='m')showAdmin();if(e.key==='Escape')closeOrder()});
-</script></body></html>
+function tab(k,el){
+ document.querySelectorAll('.side button').forEach(b=>b.classList.remove('active'));
+ if(el)el.classList.add('active');
+ const revenue=orders.reduce((a,o)=>a+o.total,0),cost=orders.reduce((a,o)=>a+o.cost,0),out=document.getElementById('content');
+ const ordersHtml=orders.slice().reverse().map(o=>
+  `<div class="order"><b>${o.name}</b><br>Telefone: ${o.phone}<br>Pedido: ${o.size} — ${itemList(o)}<br>Retirada: ${o.date} às ${o.time}<br>Estimativa: ${fmt(o.total)}<br>Observações: ${o.notes||'—'}<br><button class="btn" onclick="copyOrder(${o.id})">Copiar resumo para agenda</button></div>`
+ ).join('')||'<div class="panel">Ainda não há pedidos.</div>';
+ const pages={
+  home:`<h1 style="font:32px 'Playfair Display'">Resumo do negócio</h1><div class="stats"><div class="stat"><span>Acessos registrados</span><strong>${localStorage.getItem('mavie_views')||1}</strong></div><div class="stat"><span>Pedidos</span><strong>${orders.length}</strong></div><div class="stat"><span>Encomendas estimadas</span><strong>${fmt(revenue)}</strong></div><div class="stat"><span>Margem estimada*</span><strong>${fmt(revenue-cost)}</strong></div></div><div class="panel"><h3>Pedidos recentes</h3>${ordersHtml}</div><p class="small">*Estimativa após custo cadastrado de produtos e embalagem-base; não é lucro líquido e não inclui despesas, tributos, taxas ou entrega.</p>`,
+  orders:`<h1 style="font:32px 'Playfair Display'">Encomendas</h1>${ordersHtml}`,
+  costs:`<h1 style="font:32px 'Playfair Display'">Produtos e custos</h1><div class="panel"><table class="table"><tr><th>Produto</th><th>Preço venda</th><th>Custo</th><th>Diferença</th></tr>${P.map(p=>`<tr><td>${p.name}</td><td>${fmt(p.price)}</td><td>${fmt(p.cost)}</td><td>${fmt(p.price-p.cost)}</td></tr>`).join('')}</table></div><div class="panel"><h3>Custo estimado por kit</h3><table class="table"><tr><th>Kit</th><th>Custo produtos + embalagem</th><th>Preço inicial</th></tr>${Object.entries(S).map(([n,s])=>`<tr><td>${n}</td><td>${fmt(Object.entries(s.items).reduce((a,[id,q])=>a+P.find(p=>p.id===id).cost*q,0)+pack[n])}</td><td>${fmt(s.base)}</td></tr>`).join('')}</table></div>`,
+  agenda:`<h1 style="font:32px 'Playfair Display'">Agenda / retirada</h1><p class="small">Pedidos registrados neste navegador.</p>${ordersHtml}`,
+  traffic:`<h1 style="font:32px 'Playfair Display'">Acessos à página</h1><div class="stats"><div class="stat"><span>Carregamentos registrados</span><strong>${localStorage.getItem('mavie_views')||1}</strong></div><div class="stat"><span>Pedidos gerados</span><strong>${orders.length}</strong></div><div class="stat"><span>Conversão ilustrativa</span><strong>${(orders.length/Math.max(1,+(localStorage.getItem('mavie_views')||1))*100).toFixed(1)}%</strong></div><div class="stat"><span>Valor estimado</span><strong>${fmt(revenue)}</strong></div></div><div class="panel small">Contagem local demonstrativa: não mede visitantes únicos nem acessos de todos os dispositivos. Para analytics real, será necessário integrar uma ferramenta apropriada e informar os visitantes na política de privacidade.</div>`
+ };
+ out.innerHTML=pages[k];
+}
+function copyOrder(id){
+ const o=orders.find(x=>x.id===id);
+ const txt=`CLIENTE: ${o.name}\nTELEFONE: ${o.phone}\nPEDIDO: ${o.size} — ${itemList(o)}\nVALOR: ${fmt(o.total)}\nRETIRADA: ${o.date} às ${o.time}\nOBS: ${o.notes||'—'}`;
+ if(navigator.clipboard&&window.isSecureContext)navigator.clipboard.writeText(txt).then(()=>alert('Resumo copiado.')).catch(()=>alert(txt));
+ else alert(txt);
+}
+renderSizes();
+document.addEventListener('keydown',e=>{if(e.altKey&&e.key.toLowerCase()==='m')showAdmin();if(e.key==='Escape')closeOrder()});
+</script>
+</body>
+</html>
