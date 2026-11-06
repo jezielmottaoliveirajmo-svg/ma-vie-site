@@ -181,7 +181,7 @@ function renderImages(){
    </select>`;
  root.innerHTML=`<h2>Imagens gerais do site</h2><p>Gerencie as fotos da loja.</p>
  ${[['hero','Imagem principal'],['logo','Logotipo'],['essence','Seção Essência'],['customer1','Clientes 1'],['customer2','Clientes 2']].map(([k,label])=>`
-   <article class="item"><h3>${label}</h3><img class="preview" src="${esc(catalog.images[k]||'')}" style="object-fit:${catalog.images[k+'Fit']\vert{}\vert{}'contain'}" alt=""><label>Exibição</label>${fitOptions(k)}<label>Trocar</label><input type="file" accept="image/*" data-img="${k}"></article>`).join('')}`;
+   <article class="item"><h3>${label}</h3><img class="preview" src="${esc(catalog.images[k]||'')}" style="object-fit:${catalog.images[k+'Fit'] || 'contain'}" alt=""><label>Exibição</label>${fitOptions(k)}<label>Trocar</label><input type="file" accept="image/*" data-img="${k}"></article>`).join('')}`;
  root.querySelectorAll('[data-img]').forEach(el=>el.onchange=async()=>{if(el.files[0]){try{catalog.images[el.dataset.img]=await uploadImage(el.files[0]);renderImages();setDirty()}catch(e){alert(e.message)}}});
  root.querySelectorAll('[data-img-fit]').forEach(el=>el.onchange=()=>{catalog.images[el.dataset.imgFit+'Fit']=el.value;renderImages();setDirty()});
 }
