@@ -28,13 +28,16 @@ img{max-width:100%}
 .btn:hover{opacity:.9}
 .gold{background:var(--gold)}
 .light{background:transparent;border:1px solid var(--gold);color:var(--ink)}
+
+/* HERO FIXO E PROPORCIONAL */
 .hero{display:grid;grid-template-columns:1fr 1fr;background:var(--bg);min-height:470px}
 .heroText{padding:65px max(25px,calc((100vw - 1100px)/2));display:flex;flex-direction:column;justify-content:center}
 .eyebrow{font-size:10px;color:var(--gold);letter-spacing:2.5px;text-transform:uppercase}
 .hero h1{font:500 clamp(40px,5vw,60px)/1.1 'Playfair Display';margin:17px 0}
 .hero p{font-size:14px;line-height:1.8;color:var(--muted);max-width:430px}
-.heroImg{min-width:0;display:flex;align-items:center;justify-content:center;background:var(--bg);overflow:hidden;padding-top:20px;box-sizing:border-box}
-.heroImg img{display:block;width:100%;height:100%;max-height:600px;object-fit:contain;object-position:center}
+.heroImg{min-width:0;display:flex;align-items:center;justify-content:center;background:var(--bg);overflow:hidden;padding:20px;box-sizing:border-box}
+.heroImg img{display:block;width:100%;height:100%;max-height:480px;object-fit:contain;object-position:center}
+
 .actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:15px}
 .strip{display:grid;grid-template-columns:repeat(3,1fr);padding:22px 0;border-bottom:1px solid var(--line);text-align:center}
 .strip div{font-size:11px;color:var(--muted);border-right:1px solid var(--line)}
@@ -46,7 +49,7 @@ section{padding:70px 0}
 .intro h2{font:500 40px 'Playfair Display';margin:12px 0}
 .intro p{font-size:13px;line-height:1.8;color:var(--muted)}
 
-/* Ajuste flexível do grid de tamanhos para acomodar múltiplos cards perfeitamente */
+/* GRID DE CESTAS DINÂMICO */
 .sizes{display:grid;grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));gap:18px}
 .size{background:white;border:1px solid var(--line);cursor:pointer;display:flex;flex-direction:column}
 .size.sel{border:2px solid var(--gold)}
@@ -94,29 +97,12 @@ footer{background:#302a25;color:white;padding:35px 0}
 .field{margin:12px 0}
 .field label{display:block;font-size:10px;color:var(--muted);margin-bottom:5px;text-transform:uppercase}
 .field input,.field textarea{width:100%;padding:12px;border:1px solid var(--line);font:inherit}
-.admin{display:none;min-height:100vh;background:var(--bg)}
-.admin.show{display:block}
-.login{max-width:390px;margin:9vh auto;padding:28px;background:white}
-.adminbar{background:#332d27;color:white;padding:15px}
-.layout{display:grid;grid-template-columns:190px 1fr;gap:20px;padding:25px 0}
-.side,.panel,.stat{background:white;padding:17px;border:1px solid var(--line)}
-.side button{display:block;border:0;background:none;padding:12px;width:100%;text-align:left;font-size:12px;cursor:pointer}
-.side button.active{background:var(--bg)}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
-.stat span{font-size:10px;color:var(--muted)}
-.stat strong{display:block;font:24px 'Playfair Display';margin-top:8px}
-.panel{margin-top:13px;overflow:auto}
-.panel h3{font:22px 'Playfair Display'}
-.table{width:100%;border-collapse:collapse;font-size:11px}
-.table td,.table th{text-align:left;padding:10px;border-bottom:1px solid var(--line);white-space:nowrap}
-.table th{color:var(--muted)}
-.order{background:white;border:1px solid var(--line);padding:15px;margin:10px 0;font-size:12px;line-height:1.7}
-.small{font-size:10px;color:var(--muted);line-height:1.5}
+
 @media(max-width:760px){
   .nav nav{display:none}
   .hero{grid-template-columns:1fr;min-height:0}
   .heroImg{grid-row:1;min-height:0;padding:20px 0 0}
-  .heroImg img{width:100%;height:auto;max-height:none;object-fit:contain}
+  .heroImg img{width:100%;height:auto;max-height:360px;object-fit:contain} /* Mantém proporção exata no celular */
   .heroText{padding:40px 22px}
   .strip{grid-template-columns:1fr;gap:13px}
   .strip div{border:0}
@@ -130,10 +116,6 @@ footer{background:#302a25;color:white;padding:35px 0}
   .testimonials{grid-template-columns:1fr}
   .testimonial img{height:auto;max-height:none;object-fit:contain}
   .brandmark img{max-width:155px;max-height:56px}
-  .layout{grid-template-columns:1fr}
-  .side{display:flex;overflow:auto}
-  .side button{min-width:max-content}
-  .stats{grid-template-columns:1fr 1fr}
   .foot{display:block}
 }
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
@@ -256,17 +238,6 @@ footer{background:#302a25;color:white;padding:35px 0}
  </div>
 </div>
 
-<div class="admin" id="admin">
- <div class="login">
-  <div class="logo">MA VIE<small>PAINEL ADMINISTRATIVO</small></div>
-  <h2 style="font:26px 'Playfair Display'">Gerenciar a loja</h2>
-  <p>O gerenciamento do catálogo e das imagens agora é feito em uma área administrativa separada.</p>
-  <a class="btn gold" style="display:block;text-align:center;text-decoration:none" href="admin.html">Abrir painel administrativo</a>
-  <p class="small">O painel solicitará um token de acesso do GitHub. Ele não fica salvo no site.</p>
-  <button class="btn light" onclick="back()">Voltar à loja</button>
- </div>
-</div>
-
 <script>
 let P = [];
 let S = {};
@@ -376,37 +347,6 @@ document.getElementById('orderForm').onsubmit=e=>{
  document.getElementById('done').style.display='block';
  document.getElementById('done').innerHTML='Pedido demonstrativo registrado neste navegador. <button class="btn" onclick="closeOrder();showAdmin()">Abrir painel</button>';
 };
-function showAdmin(){document.getElementById('store').style.display='none';document.getElementById('admin').classList.add('show')}
-function back(){document.getElementById('admin').classList.remove('show');document.getElementById('store').style.display='block'}
-function loginAdmin(){
- if(document.getElementById('user').value==='socio@mavie.demo'&&document.getElementById('pass').value==='mavie123'){
-  document.getElementById('login').style.display='none';document.getElementById('dashboard').style.display='block';tab('home',document.querySelector('.side button'));
- }else alert('Confira os dados demonstrativos.');
-}
-function logout(){document.getElementById('dashboard').style.display='none';document.getElementById('login').style.display='block'}
-function itemList(o){return Object.entries(o.items).filter(x=>x[1]>0).map(([id,q])=>q+'x '+(P.find(p=>p.id===id)?.name||id)).join(', ')}
-function tab(k,el){
- document.querySelectorAll('.side button').forEach(b=>b.classList.remove('active'));
- if(el)el.classList.add('active');
- const revenue=orders.reduce((a,o)=>a+o.total,0),cost=orders.reduce((a,o)=>a+o.cost,0),out=document.getElementById('content');
- const ordersHtml=orders.slice().reverse().map(o=>
-  `<div class="order"><b>${o.name}</b><br>Telefone: ${o.phone}<br>Pedido: ${o.size} — ${itemList(o)}<br>Retirada: ${o.date} às ${o.time}<br>Estimativa: ${fmt(o.total)}<br>Observações: ${o.notes||'—'}<br><button class="btn" onclick="copyOrder(${o.id})">Copiar resumo para agenda</button></div>`
- ).join('')||'<div class="panel">Ainda não há pedidos.</div>';
- const pages={
-  home:`<h1 style="font:32px 'Playfair Display'">Resumo do negócio</h1><div class="stats"><div class="stat"><span>Acessos registrados</span><strong>${localStorage.getItem('mavie_views')||1}</strong></div><div class="stat"><span>Pedidos</span><strong>${orders.length}</strong></div><div class="stat"><span>Encomendas estimadas</span><strong>${fmt(revenue)}</strong></div><div class="stat"><span>Margem estimada*</span><strong>${fmt(revenue-cost)}</strong></div></div><div class="panel"><h3>Pedidos recentes</h3>${ordersHtml}</div><p class="small">*Estimativa após custo cadastrado de produtos e embalagem-base; não é lucro líquido e não inclui despesas, tributos, taxas ou entrega.</p>`,
-  orders:`<h1 style="font:32px 'Playfair Display'">Encomendas</h1>${ordersHtml}`,
-  costs:`<h1 style="font:32px 'Playfair Display'">Produtos e custos</h1><div class="panel"><table class="table"><tr><th>Produto</th><th>Preço venda</th><th>Custo</th><th>Diferença</th></tr>${P.map(p=>`<tr><td>${p.name}</td><td>${fmt(p.price)}</td><td>${fmt(p.cost)}</td><td>${fmt(p.price-p.cost)}</td></tr>`).join('')}</table></div><div class="panel"><h3>Custo estimado por kit</h3><table class="table"><tr><th>Kit</th><th>Custo produtos + embalagem</th><th>Preço inicial</th></tr>${Object.entries(S).map(([n,s])=>`<tr><td>${n}</td><td>${fmt(Object.entries(s.items).reduce((a,[id,q])=>a+(P.find(p=>p.id===id)?.cost||0)*q,0)+pack[n])}</td><td>${fmt(s.base)}</td></tr>`).join('')}</table></div>`,
-  agenda:`<h1 style="font:32px 'Playfair Display'">Agenda / retirada</h1><p class="small">Pedidos registrados neste navegador.</p>${ordersHtml}`,
-  traffic:`<h1 style="font:32px 'Playfair Display'">Acessos à página</h1><div class="stats"><div class="stat"><span>Carregamentos registrados</span><strong>${localStorage.getItem('mavie_views')||1}</strong></div><div class="stat"><span>Pedidos gerados</span><strong>${orders.length}</strong></div><div class="stat"><span>Conversão ilustrativa</span><strong>${(orders.length/Math.max(1,+(localStorage.getItem('mavie_views')||1))*100).toFixed(1)}%</strong></div><div class="stat"><span>Valor estimado</span><strong>${fmt(revenue)}</strong></div></div><div class="panel small">Contagem local demonstrativa: não mede visitantes únicos nem acessos de todos os dispositivos. Para analytics real, será necessário integrar uma ferramenta apropriada e informar os visitantes na política de privacidade.</div>`
- };
- out.innerHTML=pages[k];
-}
-function copyOrder(id){
- const o=orders.find(x=>x.id===id);
- const txt=`CLIENTE: ${o.name}\nTELEFONE: ${o.phone}\nPEDIDO: ${o.size} — ${itemList(o)}\nVALOR: ${fmt(o.total)}\nRETIRADA: ${o.date} às ${o.time}\nOBS: ${o.notes||'—'}`;
- if(navigator.clipboard&&window.isSecureContext)navigator.clipboard.writeText(txt).then(()=>alert('Resumo copiado.')).catch(()=>alert(txt));
- else alert(txt);
-}
 loadCatalog();
 document.addEventListener('keydown',e=>{if(e.altKey&&e.key.toLowerCase()==='m')showAdmin();if(e.key==='Escape')closeOrder()});
 </script>
