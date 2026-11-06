@@ -116,7 +116,7 @@
     },
     {
       "id": "grande",
-      "name": "Grande ",
+      "name": "Grande",
       "base": 179,
       "desc": "Uma experiência generosa, cheia de detalhes.",
       "img": "https://raw.githubusercontent.com/jezielmottaoliveirajmo-svg/ma-vie-site/main/imagens/1793975612109-caixa-presente-mavie-com-vinho-e-chocolates.png?v=1793975615417",
@@ -136,10 +136,20 @@
     {
       "id": "gg-2164",
       "name": "GG",
-      "base": 0,
-      "desc": "",
-      "img": "",
-      "items": {},
+      "base": 229,
+      "desc": "A experiência definitiva da Ma Vie.",
+      "img": "https://raw.githubusercontent.com/jezielmottaoliveirajmo-svg/ma-vie-site/main/imagens/1793975612109-caixa-presente-mavie-com-vinho-e-chocolates.png",
+      "items": {
+        "coffee": 2,
+        "croissant": 2,
+        "cookies": 2,
+        "juice": 2,
+        "jam": 1,
+        "choco": 2,
+        "fruit": 1,
+        "mug": 2,
+        "flowers": 1
+      },
       "active": true
     }
   ],
