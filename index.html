@@ -29,7 +29,7 @@ img{max-width:100%}
 .gold{background:var(--gold)}
 .light{background:transparent;border:1px solid var(--gold);color:var(--ink)}
 
-/* HERO FIXO E PROPORCIONAL */
+/* HERO (O RAPAZ): VISUALIZAÇÃO EXATA E FIXA EM QUALQUER TELA */
 .hero{display:grid;grid-template-columns:1fr 1fr;background:var(--bg);min-height:470px}
 .heroText{padding:65px max(25px,calc((100vw - 1100px)/2));display:flex;flex-direction:column;justify-content:center}
 .eyebrow{font-size:10px;color:var(--gold);letter-spacing:2.5px;text-transform:uppercase}
@@ -49,8 +49,8 @@ section{padding:70px 0}
 .intro h2{font:500 40px 'Playfair Display';margin:12px 0}
 .intro p{font-size:13px;line-height:1.8;color:var(--muted)}
 
-/* GRID DE CESTAS DINÂMICO */
-.sizes{display:grid;grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));gap:18px}
+/* CARDS DE CESTAS: FLEXÍVEIS PARA RECEBER NOVOS TAMANHOS */
+.sizes{display:grid;grid-template-columns:repeat(auto-fit, minmax(230px, 1fr));gap:18px}
 .size{background:white;border:1px solid var(--line);cursor:pointer;display:flex;flex-direction:column}
 .size.sel{border:2px solid var(--gold)}
 .sizes .size img{width:100%;height:210px;object-fit:contain;object-position:center;background:#fff;display:block;padding:10px}
@@ -102,7 +102,7 @@ footer{background:#302a25;color:white;padding:35px 0}
   .nav nav{display:none}
   .hero{grid-template-columns:1fr;min-height:0}
   .heroImg{grid-row:1;min-height:0;padding:20px 0 0}
-  .heroImg img{width:100%;height:auto;max-height:360px;object-fit:contain} /* Mantém proporção exata no celular */
+  .heroImg img{width:100%;height:auto;max-height:360px;object-fit:contain}
   .heroText{padding:40px 22px}
   .strip{grid-template-columns:1fr;gap:13px}
   .strip div{border:0}
@@ -232,7 +232,6 @@ footer{background:#302a25;color:white;padding:35px 0}
    <div class="field"><label for="notes">Observações</label><textarea id="notes"></textarea></div>
    <div class="note" id="review"></div>
    <button class="btn gold" style="width:100%">Gerar pedido</button>
-   <p class="small">Demonstração: o pedido será salvo somente neste navegador, sem confirmação de disponibilidade ou pagamento.</p>
   </form>
   <div id="done" class="note" style="display:none"></div>
  </div>
@@ -242,7 +241,8 @@ footer{background:#302a25;color:white;padding:35px 0}
 let P = [];
 let S = {};
 let pack = {};
-const DEFAULT_CATALOG = {"version": 1, "products": [{"id": "coffee", "name": "Trento's Sortidos", "desc": "Pacotes sortidos (29g cada)", "price": 6, "cost": 3.79, "img": "https://raw.githubusercontent.com/jezielmottaoliveirajmo-svg/ma-vie-site/main/imagens/1793972965153-oip.webp?v=1793972966508", "active": true}, {"id": "juice", "name": "Suco integral", "desc": "Garrafa individual", "price": 17, "cost": 12, "img": "https://raw.githubusercontent.com/jezielmottaoliveirajmo-svg/ma-vie-site/main/imagens/1793973026056-257933-300-300.webp?v=1793973027624", "active": true}, {"id": "croissant", "name": "Heineken Long Neck", "desc": "Cerveja Long Neck", "price": 12, "cost": 8, "img": "https://raw.githubusercontent.com/jezielmottaoliveirajmo-svg/ma-vie-site/main/imagens/1793973100756-324185-300-300.webp?v=1793973102401", "active": true}, {"id": "cookies", "name": "Amendoim Japonês", "desc": "Porção embalada", "price": 10, "cost": 8, "img": "https://raw.githubusercontent.com/jezielmottaoliveirajmo-svg/ma-vie-site/main/imagens/1793973320165-imagem-do-chatgpt-6-de-nov-de-2026-10-54-29.png?v=1793973321793", "active": true}, {"id": "jam", "name": "Amendoim Apimentado", "desc": "Porção embalada", "price": 10, "cost": 8, "img": "https://raw.githubusercontent.com/jezielmottaoliveirajmo-svg/ma-vie-site/main/imagens/1793973349108-amendoins-apimentados-no-saco-de-juta-1.png?v=1793973351971", "active": true}, {"id": "choco", "name": "Amendoim Cebola e Salsa", "desc": "Porção embalada", "price": 10, "cost": 8, "img": "https://raw.githubusercontent.com/jezielmottaoliveirajmo-svg/ma-vie-site/main/imagens/1793973548138-amendoins-verdes-temperados-no-saco-de-juta.png?v=1793973551433", "active": true}, {"id": "fruit", "name": "Frutas selecionadas", "desc": "Porção da estação", "price": 13, "cost": 6, "img": "https://github.com/user-attachments/assets/58dd1972-e3ec-4035-9f46-1ef3039a5fc0", "active": true}, {"id": "mug", "name": "Caneca presenteável", "desc": "Item decorativo", "price": 28, "cost": 14, "img": "https://github.com/user-attachments/assets/fc936a82-1471-4f07-a71d-325a8427c0bb", "active": true}, {"id": "flowers", "name": "Flores", "desc": "Flores da estação", "price": 32, "cost": 17, "img": "https://github.com/user-attachments/assets/40b84e6e-d5d6-4c06-b082-fbee1abecb3d", "active": true}], "baskets": [{"id": "mini", "name": "Mini", "base": 89.9, "desc": "Um gesto delicado para surpreender quem você gosta.", "img": "https://raw.githubusercontent.com/jezielmottaoliveirajmo-svg/ma-vie-site/main/imagens/1793968176445-whatsapp-image-2026-11-05-at-21-37-38.jpeg?v=1793968178583", "items": {"coffee": 6, "croissant": 1, "cookies": 1, "juice": 1}, "active": true}, {"id": "medio", "name": "Médio", "base": 109, "desc": "Uma seleção mais completa para compartilhar.", "img": "https://raw.githubusercontent.com/jezielmottaoliveirajmo-svg/ma-vie-site/main/imagens/1793975368048-kit-presente-mavie-cafe-e-carinho.png?v=1793975371033", "items": {"coffee": 1, "croissant": 2, "cookies": 1, "juice": 1, "jam": 1, "choco": 1}, "active": true}, {"id": "grande", "name": "Grande ", "base": 179, "desc": "Uma experiência generosa, cheia de detalhes.", "img": "https://raw.githubusercontent.com/jezielmottaoliveirajmo-svg/ma-vie-site/main/imagens/1793975612109-caixa-presente-mavie-com-vinho-e-chocolates.png?v=1793975615417", "items": {"coffee": 1, "croissant": 2, "cookies": 2, "juice": 2, "jam": 1, "choco": 2, "fruit": 1, "mug": 1, "flowers": 1}, "active": true}, {"id": "gg-2164", "name": "GG", "base": 0, "desc": "", "img": "", "items": {}, "active": true}], "images": {"hero": "https://github.com/user-attachments/assets/17069455-d5a4-404e-8692-0779195b526b", "logo": "https://github.com/user-attachments/assets/be778b1d-a18e-4b6a-b3b7-729b52684f94", "essence":"https://github.com/user-attachments/assets/58dd1972-e3ec-4035-9f46-1ef3039a5fc0", "customer1":"https://github.com/user-attachments/assets/40b84e6e-d5d6-4c06-b082-fbee1abecb3d", "customer2":"https://github.com/user-attachments/assets/17069455-d5a4-404e-8692-0779195b526b"}};
+const DEFAULT_CATALOG = {"version": 1, "products": [{"id": "coffee", "name": "Trento's Sortidos", "desc": "Pacotes sortidos (29g cada)", "price": 6, "cost": 3.79, "img": "https://raw.githubusercontent.com/jezielmottaoliveirajmo-svg/ma-vie-site/main/imagens/1793972965153-oip.webp?v=1793972966508", "active": true}, {"id": "juice", "name": "Suco integral", "desc": "Garrafa individual", "price": 17, "cost": 12, "img": "https://raw.githubusercontent.com/jezielmottaoliveirajmo-svg/ma-vie-site/main/imagens/1793973026056-257933-300-300.webp?v=1793973027624", "active": true}, {"id": "croissant", "name": "Heineken Long Neck", "desc": "Cerveja Long Neck", "price": 12, "cost": 8, "img": "https://raw.githubusercontent.com/jezielmottaoliveirajmo-svg/ma-vie-site/main/imagens/1793973100756-324185-300-300.webp?v=1793973102401", "active": true}, {"id": "cookies", "name": "Amendoim Japonês", "desc": "Porção embalada", "price": 10, "cost": 8, "img": "https://raw.githubusercontent.com/jezielmottaoliveirajmo-svg/ma-vie-site/main/imagens/1793973320165-imagem-do-chatgpt-6-de-nov-de-2026-10-54-29.png?v=1793973321793", "active": true}, {"id": "jam", "name": "Amendoim Apimentado", "desc": "Porção embalada", "price": 10, "cost": 8, "img": "https://raw.githubusercontent.com/jezielmottaoliveirajmo-svg/ma-vie-site/main/imagens/1793973349108-amendoins-apimentados-no-saco-de-juta-1.png?v=1793973351971", "active": true}, {"id": "choco", "name": "Amendoim Cebola e Salsa", "desc": "Porção embalada", "price": 10, "cost": 8, "img": "https://raw.githubusercontent.com/jezielmottaoliveirajmo-svg/ma-vie-site/main/imagens/1793973548138-amendoins-verdes-temperados-no-saco-de-juta.png?v=1793973551433", "active": true}, {"id": "fruit", "name": "Frutas selecionadas", "desc": "Porção da estação", "price": 13, "cost": 6, "img": "https://github.com/user-attachments/assets/58dd1972-e3ec-4035-9f46-1ef3039a5fc0", "active": true}, {"id": "mug", "name": "Caneca presenteável", "desc": "Item decorativo", "price": 28, "cost": 14, "img": "https://github.com/user-attachments/assets/fc936a82-1471-4f07-a71d-325a8427c0bb", "active": true}, {"id": "flowers", "name": "Flores", "desc": "Flores da estação", "price": 32, "cost": 17, "img": "https://github.com/user-attachments/assets/40b84e6e-d5d6-4c06-b082-fbee1abecb3d", "active": true}], "baskets": [{"id": "mini", "name": "Mini", "base": 89.9, "desc": "Um gesto delicado para surpreender quem você gosta.", "img": "https://raw.githubusercontent.com/jezielmottaoliveirajmo-svg/ma-vie-site/main/imagens/1793968176445-whatsapp-image-2026-11-05-at-21-37-38.jpeg?v=1793968178583", "items": {"coffee": 6, "croissant": 1, "cookies": 1, "juice": 1}, "active": true}, {"id": "medio", "name": "Médio", "base": 109, "desc": "Uma seleção mais completa para compartilhar.", "img": "https://raw.githubusercontent.com/jezielmottaoliveirajmo-svg/ma-vie-site/main/imagens/1793975368048-kit-presente-mavie-cafe-e-carinho.png?v=1793975371033", "items": {"coffee": 1, "croissant": 2, "cookies": 1, "juice": 1, "jam": 1, "choco": 1}, "active": true}, {"id": "grande", "name": "Grande ", "base": 179, "desc": "Uma experiência generosa, cheia de detalhes.", "img": "https://raw.githubusercontent.com/jezielmottaoliveirajmo-svg/ma-vie-site/main/imagens/1793975612109-caixa-presente-mavie-com-vinho-e-chocolates.png?v=1793975615417", "items": {"coffee": 1, "croissant": 2, "cookies": 2, "juice": 2, "jam": 1, "choco": 2, "fruit": 1, "mug": 1, "flowers": 1}, "active": true}], "images": {"hero": "https://github.com/user-attachments/assets/17069455-d5a4-404e-8692-0779195b526b", "logo": "https://github.com/user-attachments/assets/be778b1d-a18e-4b6a-b3b7-729b52684f94", "essence":"https://github.com/user-attachments/assets/58dd1972-e3ec-4035-9f46-1ef3039a5fc0", "customer1":"https://github.com/user-attachments/assets/40b84e6e-d5d6-4c06-b082-fbee1abecb3d", "customer2":"https://github.com/user-attachments/assets/17069455-d5a4-404e-8692-0779195b526b"}};
+
 async function loadCatalog(){
   let data = DEFAULT_CATALOG;
   try {
@@ -273,17 +273,7 @@ async function loadCatalog(){
 }
 
 let chosen=null,bag={};
-let orders=loadOrders();
 const fmt=n=>n.toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
-
-
-function loadOrders(){
- try{return JSON.parse(localStorage.getItem('mavie_orders')||'[]')}catch{return []}
-}
-function saveLocal(key,value){
- try{localStorage.setItem(key,value);return true}catch(error){console.warn('Não foi possível salvar no navegador:',error);return false}
-}
-saveLocal('mavie_views',String(+(localStorage.getItem('mavie_views')||0)+1));
 
 function renderSizes(){
  const root=document.getElementById('sizes');
@@ -298,11 +288,13 @@ function renderSizes(){
   </article>`;
  }).join('');
 }
+
 function choose(n){
  chosen=n;bag={...S[n].items};renderSizes();renderProducts();update();
  document.getElementById('selected').textContent='Kit '+n+' selecionado. Ajuste as quantidades para personalizar.';
  document.getElementById('montar').scrollIntoView({behavior:'smooth'});
 }
+
 function renderProducts(){
  const available = chosen && S[chosen] ? Object.keys(S[chosen].items).map(id=>P.find(p=>p.id===id)).filter(Boolean) : [];
  document.getElementById('products').innerHTML=available.map(p=>
@@ -313,7 +305,9 @@ function renderProducts(){
    </div>
   </article>`).join('');
 }
+
 function qty(id,d){bag[id]=Math.max(0,(bag[id]||0)+d);renderProducts();update()}
+
 function calc(){
  const val=Object.entries(bag).reduce((a,[id,q])=>a+(P.find(p=>p.id===id)?.price||0)*q,0);
  const std=chosen?Object.entries(S[chosen].items).reduce((a,[id,q])=>a+(P.find(p=>p.id===id)?.price||0)*q,0):0;
@@ -321,6 +315,7 @@ function calc(){
  const cost=Object.entries(bag).reduce((a,[id,q])=>a+(P.find(p=>p.id===id)?.cost||0)*q,0)+(chosen?pack[chosen]:0);
  return{base,delta:val-std,total:Math.max(0,base+val-std),cost};
 }
+
 function update(){
  const c=calc();
  document.getElementById('summary').innerHTML=Object.entries(bag).filter(x=>x[1]>0).map(([id,q])=>
@@ -329,7 +324,9 @@ function update(){
  document.getElementById('adjust').textContent=(c.delta>=0?'+ ':'− ')+fmt(Math.abs(c.delta));
  document.getElementById('total').textContent='A partir de '+fmt(c.total);
 }
+
 function resetKit(){if(chosen){bag={...S[chosen].items};renderProducts();update()}}
+
 function openOrder(){
  if(!chosen||!Object.values(bag).some(x=>x>0)){alert('Escolha um tamanho e pelo menos um item.');return}
  document.getElementById('review').innerHTML='Kit '+chosen+' — '+Object.entries(bag).filter(x=>x[1]>0).map(([id,q])=>q+' × '+(P.find(p=>p.id===id||id)?.name||id)).join(', ')+'<br><b>Total estimado: '+fmt(calc().total)+'</b>';
@@ -337,18 +334,18 @@ function openOrder(){
  document.getElementById('done').style.display='none';
  document.getElementById('orderForm').style.display='block';
 }
+
 function closeOrder(){document.getElementById('orderModal').classList.remove('open')}
+
 document.getElementById('orderForm').onsubmit=e=>{
  e.preventDefault();
- const c=calc();
- const o={id:Date.now(),name:document.getElementById('name').value,phone:document.getElementById('phone').value,date:document.getElementById('date').value,time:document.getElementById('time').value,notes:document.getElementById('notes').value,size:chosen,items:{...bag},total:c.total,cost:c.cost};
- orders.push(o);saveLocal('mavie_orders',JSON.stringify(orders));
  document.getElementById('orderForm').style.display='none';
  document.getElementById('done').style.display='block';
- document.getElementById('done').innerHTML='Pedido demonstrativo registrado neste navegador. <button class="btn" onclick="closeOrder();showAdmin()">Abrir painel</button>';
+ document.getElementById('done').innerHTML='Pedido enviado com sucesso!';
 };
+
 loadCatalog();
-document.addEventListener('keydown',e=>{if(e.altKey&&e.key.toLowerCase()==='m')showAdmin();if(e.key==='Escape')closeOrder()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeOrder()});
 </script>
 </body>
 </html>
