@@ -56,12 +56,20 @@ const $=id=>document.getElementById(id);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const slug=s=>String(s).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')||'novo';
 function status(el,msg,type=''){el.className='status '+type;el.textContent=msg}
+
 async function api(path,opts={}){
  const r=await fetch('https://api.github.com'+path,{...opts,headers:{'Accept':'application/vnd.github+json','Authorization':'Bearer '+token,'X-GitHub-Api-Version':'2022-11-28',...(opts.headers||{})}});
  const data=await r.json().catch(()=>({}));
- if(!r.ok)throw new Error(data.message||('GitHub respondeu '+r.status));
+ if(!r.ok){
+  let errorMsg = data.message || ('GitHub respondeu com status ' + r.status);
+  if(r.status === 401) errorMsg = 'Token inválido ou expirado (Bad credentials).';
+  if(r.status === 403) errorMsg = 'Acesso negado. Verifique se o token tem permissão de escrita (Contents: Read and write) no repositório correto.';
+  if(r.status === 404) errorMsg = 'Arquivo catalog.json ou repositório não encontrado. Confirme se o nome do repositório é "ma-vie-site".';
+  throw new Error(errorMsg);
+ }
  return data;
 }
+
 async function readCatalog(){
  const d=await api(`/repos/${OWNER}/${REPO}/contents/${FILE}?ref=${BRANCH}`);
  fileSha=d.sha;
@@ -69,13 +77,27 @@ async function readCatalog(){
  catalog=JSON.parse(new TextDecoder().decode(bytes));
  catalog.products ||= [];catalog.baskets ||= [];catalog.images ||= {};
 }
+
 $('connectBtn').onclick=async()=>{
  token=$('token').value.trim(); if(!token){status($('connectStatus'),'Cole o token de acesso.','error');return}
  $('connectBtn').disabled=true;status($('connectStatus'),'Conectando ao repositório…');
- try{await readCatalog();$('token').value='';$('connect').classList.add('hidden');$('app').classList.remove('hidden');renderAll();status($('saveStatus'),'Conectado. Faça as alterações e salve quando terminar.','ok')}
- catch(e){token='';status($('connectStatus'),'Não foi possível conectar: '+e.message+'. Confira o token, o repositório e a permissão Contents.','error')}
- finally{$('connectBtn').disabled=false}
+ try{
+  await readCatalog();
+  $('token').value='';
+  $('connect').classList.add('hidden');
+  $('app').classList.remove('hidden');
+  renderAll();
+  status($('saveStatus'),'Conectado com sucesso. Faça as alterações e salve quando terminar.','ok');
+ }
+ catch(e){
+  token='';
+  status($('connectStatus'), e.message, 'error');
+ }
+ finally{
+  $('connectBtn').disabled=false;
+ }
 };
+
 function setDirty(){dirty=true;status($('saveStatus'),'Há alterações ainda não salvas.','')}
 function switchTab(name){
  document.querySelectorAll('.tabs button').forEach(b=>b.classList.toggle('active',b.dataset.tab===name));
@@ -83,6 +105,7 @@ function switchTab(name){
 }
 document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>switchTab(b.dataset.tab));
 function renderAll(){renderBaskets();renderProducts();renderImages()}
+
 function renderBaskets(){
  const root=$('tab-baskets');
  root.innerHTML=`<div class="row"><div><h2>Cestas cadastradas</h2><p>O cliente verá os itens que compõem cada cesta e poderá ajustar as quantidades dos itens cadastrados nela.</p></div><div style="align-self:center;text-align:right"><button class="gold" id="newBasket">+ Nova cesta</button></div></div><div class="grid">${catalog.baskets.map((b,i)=>`
@@ -99,6 +122,7 @@ function renderBaskets(){
  root.querySelectorAll('[data-upload-b]').forEach(el=>el.onchange=async()=>{if(el.files[0]){try{catalog.baskets[+el.dataset.uploadB].img=await uploadImage(el.files[0]);renderBaskets();setDirty()}catch(e){alert(e.message)}}});
  $('newBasket').onclick=()=>{const n=prompt('Nome da nova cesta:');if(!n?.trim())return;catalog.baskets.push({id:slug(n)+'-'+Date.now().toString().slice(-4),name:n.trim(),base:0,desc:'',img:'',items:{},active:true});renderBaskets();setDirty()};
 }
+
 function renderProducts(){
  const root=$('tab-products');
  root.innerHTML=`<div class="row"><div><h2>Itens disponíveis</h2><p>Cadastre os produtos que podem ser incluídos nas cestas. Marque os itens nas configurações de cada cesta.</p></div><div style="align-self:center;text-align:right"><button class="gold" id="newProduct">+ Novo item</button></div></div><div class="grid">${catalog.products.map((p,i)=>`
@@ -113,6 +137,7 @@ function renderProducts(){
  root.querySelectorAll('[data-upload-p]').forEach(el=>el.onchange=async()=>{if(el.files[0]){try{catalog.products[+el.dataset.uploadP].img=await uploadImage(el.files[0]);renderProducts();setDirty()}catch(e){alert(e.message)}}});
  $('newProduct').onclick=()=>{const n=prompt('Nome do novo item:');if(!n?.trim())return;catalog.products.push({id:slug(n)+'-'+Date.now().toString().slice(-4),name:n.trim(),desc:'',price:0,cost:0,img:'',active:true});renderAll();setDirty()};
 }
+
 function renderImages(){
  const root=$('tab-images');
  const fitOptions = (current) => `
@@ -135,6 +160,7 @@ function renderImages(){
  root.querySelectorAll('[data-img]').forEach(el=>el.onchange=async()=>{if(el.files[0]){try{catalog.images[el.dataset.img]=await uploadImage(el.files[0]);renderImages();setDirty()}catch(e){alert(e.message)}}});
  root.querySelectorAll('[data-img-fit]').forEach(el=>el.onchange=()=>{catalog.images[el.dataset.imgFit+'Fit']=el.value;renderImages();setDirty()});
 }
+
 async function uploadImage(file){
  if(file.size>6*1024*1024)throw new Error('A imagem deve ter até 6 MB. Reduza o tamanho e tente novamente.');
  const ext=(file.name.split('.').pop()||'jpg').toLowerCase().replace(/[^a-z0-9]/g,'')||'jpg';
@@ -143,6 +169,7 @@ async function uploadImage(file){
  const result=await api(`/repos/${OWNER}/${REPO}/contents/${path}`,{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:'Adicionar imagem pelo painel Ma Vie',content,branch:BRANCH})});
  return `https://raw.githubusercontent.com/${OWNER}/${REPO}/${BRANCH}/${path}?v=${Date.now()}`;
 }
+
 $('saveBtn').onclick=async()=>{
  if(!token)return; $('saveBtn'].disabled=true;status($('saveStatus'),'Salvando catálogo no GitHub…');
  try{
@@ -151,8 +178,9 @@ $('saveBtn').onclick=async()=>{
   await api(`/repos/${OWNER}/${REPO}/contents/${FILE}`,{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:'Atualizar catálogo Ma Vie pelo painel',content,sha:current.sha,branch:BRANCH})});
   dirty=false;await readCatalog();renderAll();status($('saveStatus'),'Catálogo salvo! O GitHub Pages pode levar alguns minutos para atualizar o site.','ok');
  }catch(e){status($('saveStatus'),'Não foi possível salvar: '+e.message,'error')}
- finally{$('saveBtn').disabled=false}
+ finally{$('saveBtn'].disabled=false}
 };
+
 $('reloadBtn').onclick=async()=>{if(dirty&&!confirm('Descartar todas as alterações não salvas?'))return;try{await readCatalog();dirty=false;renderAll();status($('saveStatus'),'Catálogo recarregado do GitHub.','ok')}catch(e){status($('saveStatus'),e.message,'error')}};
 $('logoutBtn').onclick=()=>{if(dirty&&!confirm('Há alterações não salvas. Desconectar mesmo assim?'))return;token='';catalog=null;$('app').classList.add('hidden');$('connect').classList.remove('hidden');status($('connectStatus'),'Desconectado. O token não foi salvo.');};
 </script></body></html>
