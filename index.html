@@ -345,7 +345,15 @@ document.getElementById('orderForm').onsubmit=e=>{
 };
 
 loadCatalog();
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeOrder()});
+
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape') closeOrder();
+
+  if(e.altKey && e.key.toLowerCase()==='m'){
+    e.preventDefault();
+    window.location.href='admin.html';
+  }
+});
 </script>
 </body>
 </html>
