@@ -3,29 +3,29 @@
   "products": [
     {
       "id": "coffee",
-      "name": "Trento's Sortidos",
-      "desc": "Pacotes sortidos (29g cada)",
+      "name": "Treto's Sortidos (29g cada)",
+      "desc": "Pacotes sortidos",
       "price": 6,
       "cost": 3.79,
-      "img": "https://raw.githubusercontent.com/jezielmottaoliveirajmo-svg/ma-vie-site/main/imagens/1793972965153-oip.webp?v=1793972966508",
+      "img": "https://raw.githubusercontent.com/jezielmottaoliveirajmo-svg/ma-vie-site/main/imagens/1793973159290-oip.webp?v=1793973160823",
       "active": true
     },
     {
       "id": "juice",
       "name": "Suco integral",
       "desc": "Garrafa individual",
-      "price": 17,
-      "cost": 12,
-      "img": "https://raw.githubusercontent.com/jezielmottaoliveirajmo-svg/ma-vie-site/main/imagens/1793973026056-257933-300-300.webp?v=1793973027624",
+      "price": 14,
+      "cost": 7,
+      "img": "https://github.com/user-attachments/assets/58dd1972-e3ec-4035-9f46-1ef3039a5fc0",
       "active": true
     },
     {
       "id": "croissant",
-      "name": "Heineken Long Neck",
-      "desc": "Cerveja Long Neck",
+      "name": "Croissant",
+      "desc": "Unidade artesanal",
       "price": 12,
-      "cost": 8,
-      "img": "https://raw.githubusercontent.com/jezielmottaoliveirajmo-svg/ma-vie-site/main/imagens/1793973100756-324185-300-300.webp?v=1793973102401",
+      "cost": 5.5,
+      "img": "https://github.com/user-attachments/assets/fc936a82-1471-4f07-a71d-325a8427c0bb",
       "active": true
     },
     {
