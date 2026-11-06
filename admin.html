@@ -1,9 +1,12 @@
 <!doctype html>
 <html lang="pt-BR">
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#fffdf9"><title>Administração | Ma Vie</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#fffdf9">
+<title>Administração | Ma Vie</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 :root{--bg:#f7f2eb;--paper:#fffdf9;--ink:#39332e;--muted:#82776c;--gold:#b18b5d;--line:#e8ded1}
@@ -31,16 +34,16 @@ hr{border:0;border-top:1px solid var(--line);margin:18px 0}
 </style>
 </head>
 <body>
-<header class="bar"><div class="wrap barin"><div class="brand">MA VIE<small>PAINEL ADMINISTRATIVO</small></div><a class="btn light" href="./">Voltar à loja</a></div></header>
+<header class="bar"><div class="wrap barin"><div class="brand">MA VIE<small>PAINEL ADMINISTRATIVO</small></div><a class="btn light" href="index.html">Voltar à loja</a></div></header>
 <main class="wrap">
 <section id="connect" class="card">
 <h1>Acesso administrativo</h1>
 <p>Conecte este painel ao repositório do site para editar o catálogo e as imagens. O token é mantido somente na memória desta aba e não é salvo no site nem no navegador.</p>
 <div class="row">
-  <div><label for="token">Token de acesso do GitHub</label><input id="token" type="password" autocomplete="off" placeholder="Cole seu token fine-grained"></div>
-  <div style="align-self:end"><button class="gold" type="button" onclick="conectarGitHub()">Conectar ao GitHub</button></div>
+  <div><label for="token">Token de acesso do GitHub</label><input id="token" type="password" autocomplete="off" placeholder="Cole seu token fine-grained aqui"></div>
+  <div style="align-self:end"><button class="gold" id="btnConnect" type="button">Conectar ao GitHub</button></div>
 </div>
-<div class="status" id="connectStatus">Crie um token fine-grained limitado ao repositório <b>ma-vie-site</b>, com permissão <b>Contents: Read and write</b>.</div>
+<div class="status" id="connectStatus">Informe um Fine-grained Personal Access Token do GitHub com permissão <b>Contents: Read and write</b>.</div>
 </section>
 
 <section id="app" class="hidden">
@@ -60,16 +63,39 @@ hr{border:0;border-top:1px solid var(--line);margin:18px 0}
 <script>
 const OWNER='jezielmottaoliveirajmo-svg', REPO='ma-vie-site', BRANCH='main', FILE='catalog.json';
 let token='', catalog=null, fileSha=null, dirty=false;
+
 const $=id=>document.getElementById(id);
-const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;n'}[c]));
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const slug=s=>String(s).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')||'novo';
-function setStatus(msg,isError=false){const el=$('connectStatus');el.className='status '+(isError?'error':'ok');el.textContent=msg;}
+
+function b64ToUtf8(str) {
+  return decodeURIComponent(atob(str).split('').map(function(c) {
+    return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+  }).join(''));
+}
+
+function utf8ToB64(str) {
+  return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, function(match, p1) {
+    return String.fromCharCode('0x' + p1);
+  }));
+}
+
+function setStatus(msg, isError=false){
+  const el=$('connectStatus');
+  if(!el) return;
+  el.className='status '+(isError?'error':'ok');
+  el.textContent=msg;
+}
 
 async function api(path,opts={}){
  const r=await fetch('https://api.github.com'+path,{...opts,headers:{'Accept':'application/vnd.github+json','Authorization':'Bearer '+token,'X-GitHub-Api-Version':'2022-11-28',...(opts.headers||{})}});
  const data=await r.json().catch(()=>({}));
  if(!r.ok){
-  throw new Error(data.message || ('Erro da API GitHub: ' + r.status));
+  let msg = data.message || ('Erro ' + r.status);
+  if(r.status===401) msg = 'Token de acesso inválido ou expirado (Bad credentials).';
+  if(r.status===403) msg = 'Acesso negado. Certifique-se de que o token tem a permissão "Contents: Read and Write".';
+  if(r.status===404) msg = 'Repositório ou arquivo catalog.json não localizado em main.';
+  throw new Error(msg);
  }
  return data;
 }
@@ -77,39 +103,33 @@ async function api(path,opts={}){
 async function readCatalog(){
  const d=await api(`/repos/${OWNER}/${REPO}/contents/${FILE}?ref=${BRANCH}`);
  fileSha=d.sha;
- const raw=atob(d.content.replace(/\n/g,''));
- const bytes=Uint8Array.from(raw,c=>c.charCodeAt(0));
- catalog=JSON.parse(new TextDecoder().decode(bytes));
+ const cleanB64 = d.content.replace(/\s/g, '');
+ const utf8Text = b64ToUtf8(cleanB64);
+ catalog=JSON.parse(utf8Text);
  catalog.products ||= []; catalog.baskets ||= []; catalog.images ||= {};
 }
 
-async function conectarGitHub(){
- try {
-  const tokenInput = $('token');
-  token = tokenInput ? tokenInput.value.trim() : '';
-  
-  if(!token){
-   setStatus('Por favor, cole o token de acesso do GitHub no campo acima.', true);
-   return;
+document.addEventListener('DOMContentLoaded', ()=>{
+  const btn = $('btnConnect');
+  if(btn){
+    btn.onclick = async ()=>{
+      token = ($('token')?.value || '').trim();
+      if(!token){ setStatus('Cole o token de acesso no campo acima.', true); return; }
+      setStatus('Conectando ao repositório GitHub...', false);
+      try {
+        await readCatalog();
+        $('connect').classList.add('hidden');$('app').classList.remove('hidden');
+        renderAll();
+        $('saveStatus').className = 'status ok';$('saveStatus').textContent = 'Conectado com sucesso! Faça suas edições e clique em Salvar.';
+      } catch(e) {
+        token = '';
+        setStatus('Erro ao conectar: ' + e.message, true);
+      }
+    };
   }
-  
-  setStatus('Conectando ao repositório GitHub...', false);
-  
-  await readCatalog();
-  
-  if(tokenInput) tokenInput.value = '';
-  $('connect').classList.add('hidden');
-  $('app').classList.remove('hidden');
-  renderAll();
-  $('saveStatus').className = 'status ok';
-  $('saveStatus').textContent = 'Conectado com sucesso! Faça as alterações e salve quando terminar.';
- } catch(e) {
-  token = '';
-  setStatus('Falha na conexão: ' + e.message, true);
- }
-}
+});
 
-function setDirty(){dirty=true; $('saveStatus').className='status'; $('saveStatus').textContent='Há alterações ainda não salvas.';}
+function setDirty(){dirty=true; $('saveStatus').className='status';$('saveStatus').textContent='Há alterações não salvas.';}
 function switchTab(name){
  document.querySelectorAll('.tabs button').forEach(b=>b.classList.toggle('active',b.dataset.tab===name));
  ['baskets','products','images'].forEach(t=>$('tab-'+t).classList.toggle('hidden',t!==name));
@@ -120,7 +140,7 @@ function renderAll(){renderBaskets();renderProducts();renderImages()}
 function renderBaskets(){
  const root=$('tab-baskets');
  if(!root) return;
- root.innerHTML=`<div class="row"><div><h2>Cestas cadastradas</h2><p>O cliente verá os itens que compõem cada cesta e poderá ajustar as quantidades.</p></div><div style="align-self:center;text-align:right"><button class="gold" type="button" id="newBasket">+ Nova cesta</button></div></div><div class="grid">${catalog.baskets.map((b,i)=>`
+ root.innerHTML=`<div class="row"><div><h2>Cestas cadastradas</h2><p>Gerencie as cestas e os produtos padrão de cada uma.</p></div><div style="align-self:center;text-align:right"><button class="gold" type="button" id="newBasket">+ Nova cesta</button></div></div><div class="grid">${catalog.baskets.map((b,i)=>`
  <article class="item"><h3>${esc(b.name)}</h3><label>Nome</label><input data-b="${i}" data-k="name" value="${esc(b.name)}">
  <div class="row"><div><label>Preço inicial (R$)</label><input type="number" min="0" step=".01" data-b="${i}" data-k="base" value="${Number(b.base)||0}"></div><div><label>Ativa na loja</label><select data-b="${i}" data-k="active"><option value="true" ${b.active!==false?'selected':''}>Sim</option><option value="false" ${b.active===false?'selected':''}>Não</option></select></div></div>
  <label>Descrição</label><textarea data-b="${i}" data-k="desc">${esc(b.desc)}</textarea>
@@ -138,7 +158,7 @@ function renderBaskets(){
 function renderProducts(){
  const root=$('tab-products');
  if(!root) return;
- root.innerHTML=`<div class="row"><div><h2>Itens disponíveis</h2><p>Cadastre os produtos que podem ser incluídos nas cestas.</p></div><div style="align-self:center;text-align:right"><button class="gold" type="button" id="newProduct">+ Novo item</button></div></div><div class="grid">${catalog.products.map((p,i)=>`
+ root.innerHTML=`<div class="row"><div><h2>Itens disponíveis</h2><p>Cadastre novos itens para o catálogo.</p></div><div style="align-self:center;text-align:right"><button class="gold" type="button" id="newProduct">+ Novo item</button></div></div><div class="grid">${catalog.products.map((p,i)=>`
  <article class="item"><h3>${esc(p.name)}</h3><label>Nome do item</label><input data-p="${i}" data-k="name" value="${esc(p.name)}">
  <label>Descrição</label><textarea data-p="${i}" data-k="desc">${esc(p.desc)}</textarea>
  <div class="row"><div><label>Preço adicional (R$)</label><input type="number" min="0" step=".01" data-p="${i}" data-k="price" value="${Number(p.price)||0}"></div><div><label>Custo interno (R$)</label><input type="number" min="0" step=".01" data-p="${i}" data-k="cost" value="${Number(p.cost)||0}"></div></div>
@@ -159,9 +179,9 @@ function renderImages(){
      <option value="cover" ${catalog.images[current+'Fit']==='cover'?'selected':''}>Preencher caixa (Cover)</option>
      <option value="contain" ${catalog.images[current+'Fit']==='contain'||!catalog.images[current+'Fit']?'selected':''}>Foto inteira (Contain)</option>
    </select>`;
- root.innerHTML=`<h2>Imagens gerais do site</h2><p>Troque as fotografias e escolha a forma de exibição.</p>
+ root.innerHTML=`<h2>Imagens gerais do site</h2><p>Gerencie as fotos da loja.</p>
  ${[['hero','Imagem principal'],['logo','Logotipo'],['essence','Seção Essência'],['customer1','Clientes 1'],['customer2','Clientes 2']].map(([k,label])=>`
-   <article class="item"><h3>${label}</h3><img class="preview" src="${esc(catalog.images[k]||'')}" style="object-fit:${catalog.images[k+'Fit']||'contain'}" alt=""><label>Exibição</label>${fitOptions(k)}<label>Trocar</label><input type="file" accept="image/*" data-img="${k}"></article>`).join('')}`;
+   <article class="item"><h3>${label}</h3><img class="preview" src="${esc(catalog.images[k]||'')}" style="object-fit:${catalog.images[k+'Fit']\vert{}\vert{}'contain'}" alt=""><label>Exibição</label>${fitOptions(k)}<label>Trocar</label><input type="file" accept="image/*" data-img="${k}"></article>`).join('')}`;
  root.querySelectorAll('[data-img]').forEach(el=>el.onchange=async()=>{if(el.files[0]){try{catalog.images[el.dataset.img]=await uploadImage(el.files[0]);renderImages();setDirty()}catch(e){alert(e.message)}}});
  root.querySelectorAll('[data-img-fit]').forEach(el=>el.onchange=()=>{catalog.images[el.dataset.imgFit+'Fit']=el.value;renderImages();setDirty()});
 }
@@ -171,24 +191,25 @@ async function uploadImage(file){
  const ext=(file.name.split('.').pop()||'jpg').toLowerCase().replace(/[^a-z0-9]/g,'')||'jpg';
  const path=`imagens/${Date.now()}-${slug(file.name.replace(/\.[^.]+$/,''))}.${ext}`;
  const content=await new Promise((resolve,reject)=>{const r=new FileReader();r.onload=()=>resolve(String(r.result).split(',')[1]);r.onerror=reject;r.readAsDataURL(file)});
- await api(`/repos/${OWNER}/${REPO}/contents/${path}`,{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:'Upload imagem painel',content,branch:BRANCH})});
+ await api(`/repos/${OWNER}/${REPO}/contents/${path}`,{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:'Upload de imagem',content,branch:BRANCH})});
  return `https://raw.githubusercontent.com/${OWNER}/${REPO}/${BRANCH}/${path}?v=${Date.now()}`;
 }
 
 const sb=$('saveBtn'); if(sb) sb.onclick=async()=>{
- if(!token)return; sb.disabled=true; $('saveStatus').className='status'; $('saveStatus').textContent='Salvando catálogo…';
+ if(!token)return; sb.disabled=true; $('saveStatus').className='status';$('saveStatus').textContent='Salvando catálogo...';
  try{
   const current=await api(`/repos/${OWNER}/${REPO}/contents/${FILE}?ref=${BRANCH}`);
-  const content=btoa(unescape(encodeURIComponent(JSON.stringify(catalog,null,2))));
-  await api(`/repos/${OWNER}/${REPO}/contents/${FILE}`,{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:'Atualizar catálogo Ma Vie',content,sha:current.sha,branch:BRANCH})});
+  const jsonStr = JSON.stringify(catalog, null, 2);
+  const content = utf8ToB64(jsonStr);
+  await api(`/repos/${OWNER}/${REPO}/contents/${FILE}`,{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({message:'Atualizar catálogo via painel Ma Vie',content,sha:current.sha,branch:BRANCH})});
   dirty=false; await readCatalog(); renderAll();
-  $('saveStatus').className='status ok'; $('saveStatus').textContent='Catálogo salvo com sucesso!';
- }catch(e){$('saveStatus').className='status error'; $('saveStatus').textContent='Erro ao salvar: '+e.message;}
+  $('saveStatus').className='status ok';$('saveStatus').textContent='Catálogo salvo com sucesso!';
+ }catch(e){$('saveStatus').className='status error';$('saveStatus').textContent='Erro ao salvar: '+e.message;}
  finally{sb.disabled=false;}
 };
 
-const rb=$('reloadBtn'); if(rb) rb.onclick=async()=>{if(dirty&&!confirm('Descartar alterações?'))return;try{await readCatalog();dirty=false;renderAll();$('saveStatus').className='status ok';$('saveStatus').textContent='Recarregado.';}catch(e){$('saveStatus').className='status error';$('saveStatus').textContent=e.message;}};
-const lb=$('logoutBtn'); if(lb) lb.onclick=()=>{if(dirty&&!confirm('Sair sem salvar?'))return;token='';catalog=null;$('app').classList.add('hidden');$('connect').classList.remove('hidden');setStatus('Desconectado.');};
+const rb=$('reloadBtn'); if(rb) rb.onclick=async()=>{if(dirty&&!confirm('Descartar alterações?'))return;try{await readCatalog();dirty=false;renderAll();$('saveStatus').className='status ok';$('saveStatus').textContent='Catálogo recarregado.';}catch(e){$('saveStatus').className='status error';$('saveStatus').textContent=e.message;}};
+const lb=$('logoutBtn'); if(lb) lb.onclick=()=>{if(dirty&&!confirm('Desconectar sem salvar?'))return;token='';catalog=null;$('app').classList.add('hidden');$('connect').classList.remove('hidden');setStatus('Desconectado.');};
 </script>
 </body>
 </html>
